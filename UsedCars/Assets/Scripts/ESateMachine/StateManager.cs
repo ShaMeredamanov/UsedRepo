@@ -23,11 +23,9 @@ public abstract class StateManager<EState> : MonoBehaviour where EState : Enum
         {
             TransitionToState(nextStateKey);
         }
-        Debug.Log("i am state manager");
     }
     public void TransitionToState(EState stateKey)
     {
-        Debug.Log("transition to state");
         isTarnsitioningState = true;
         CurrentState.ExitState();
         CurrentState = States[stateKey];

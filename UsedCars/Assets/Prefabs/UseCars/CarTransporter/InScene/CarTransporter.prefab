@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1275573098088492656}
   - component: {fileID: 7477936137105136017}
+  - component: {fileID: 1407758986669020213}
   m_Layer: 0
   m_Name: CarTransporter
   m_TagString: Untagged
@@ -50,6 +51,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7f39e203dfa2111458a4888b1cb169e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wayPoint: {fileID: 0}
+  givesAwayWayPoints: {fileID: 0}
+--- !u!114 &1407758986669020213
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1275573098088492657}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 951d5706121b6ba4b8ff0cbb7f60f339, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &1275573096285364769

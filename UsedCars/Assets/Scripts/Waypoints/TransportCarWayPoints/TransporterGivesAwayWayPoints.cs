@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace TransporterWayPoint
+namespace GivingACar
 {
-    public class TransportCarWaypoints : MonoBehaviour
+    public class TransporterGivesAwayWayPoints : MonoBehaviour
     {
         private void OnDrawGizmos()
         {

@@ -4,6 +4,14 @@ using UnityEngine;
 
 public class TransportIntercationsGivesCarAway : CarBaseInteractionState
 {
+    private Transform currentWayPoint;
+    private float speed = 20f;
+    private float distanceThreeShold = 0.5f;
+    private Quaternion rotataionGoal;
+    private Vector3 directionToWoyPoint;
+    private float rotateSpeed = 5f;
+    private Transform parentTransfrom;
+    private int childCount;
     public TransportIntercationsGivesCarAway(TransportCarContextState transportCarContext, TransportIntercationStateMachine.ETransportInteractionState estate) : base(transportCarContext, estate)
     {
         TransportCarContextState transportCarContextState = transportCarContext;
@@ -11,21 +19,43 @@ public class TransportIntercationsGivesCarAway : CarBaseInteractionState
 
     public override void EnterState()
     {
-        throw new System.NotImplementedException();
+        currentWayPoint = Context.GivesAwayWayPoints.GetNextWayPoint(currentWayPoint);
+        parentTransfrom = Context.GivesAwayWayPoints.GetThisComponentTransfrom(parentTransfrom);
+        childCount = parentTransfrom.childCount;
+        Debug.Log(childCount, parentTransfrom);
+        Debug.Log("current way point", currentWayPoint);
     }
-
     public override void ExitState()
     {
-        throw new System.NotImplementedException();
+        Debug.Log("this is exit state");
     }
 
     public override TransportIntercationStateMachine.ETransportInteractionState GetNextState()
     {
-        throw new System.NotImplementedException();
+        if (childCount - 1 <= currentWayPoint.GetSiblingIndex())
+        {
+            return TransportIntercationStateMachine.ETransportInteractionState.WaitState;
+        }
+        else
+        {
+            return StateKey;
+        }
     }
-
     public override void UpdateState()
     {
-        throw new System.NotImplementedException();
+        var direction = (currentWayPoint.transform.position - Context.BigCar.transform.position).normalized;
+        Context.BigCar.transform.Translate(direction * speed * Time.deltaTime, Space.World);
+        if (Vector3.Distance(Context.BigCar.transform.position, currentWayPoint.position) < distanceThreeShold)
+        {
+            currentWayPoint = Context.GivesAwayWayPoints.GetNextWayPoint(currentWayPoint);
+
+        }
+        RotateTowardsWayPoint();
+    }
+    private void RotateTowardsWayPoint()
+    {
+        directionToWoyPoint = (currentWayPoint.position - Context.BigCar.transform.position).normalized;
+        rotataionGoal = Quaternion.LookRotation(directionToWoyPoint);
+        Context.BigCar.transform.rotation = Quaternion.Slerp(Context.BigCar.transform.rotation, rotataionGoal, rotateSpeed * Time.deltaTime);
     }
 }

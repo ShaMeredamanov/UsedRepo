@@ -8,6 +8,5 @@ public abstract class CarBaseInteractionState : BaseState<TransportIntercationSt
     public CarBaseInteractionState(TransportCarContextState context, TransportIntercationStateMachine.ETransportInteractionState stateKey) : base(stateKey)
     {
         Context = context;
-        Debug.Log("CarBaseInteractionState : BaseState<TransportIntercationStateMachine.ETransportInteractionState>");
     }
 }
