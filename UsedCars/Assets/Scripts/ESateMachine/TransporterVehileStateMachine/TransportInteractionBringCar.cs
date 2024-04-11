@@ -5,7 +5,7 @@ using UnityEngine;
 public class TransportInteractionBringCar : CarBaseInteractionState
 {
     private Transform currentWayPoint;
-    private float speed = 20f;
+    private float speed;
     private float distanceThreeShold = 0.5f;
     private Quaternion rotataionGoal;
     private Vector3 directionToWoyPoint;
@@ -21,12 +21,12 @@ public class TransportInteractionBringCar : CarBaseInteractionState
         currentWayPoint = Context.Waypoints.GetNextWayPoint(currentWayPoint);
         parentTransfrom = Context.Waypoints.GetThisComponentTransfrom(parentTransfrom);
         childCount = parentTransfrom.childCount;
-        Debug.Log(childCount, parentTransfrom);
-        Debug.Log("current way point", currentWayPoint);
+        Context.Transporter.CreateCarObject();
+        Context.Transporter.GetChildCar();
+        speed = Context.GeneralSpeed;
     }
     public override void ExitState()
     {
-        Debug.Log("this is exit state");
     }
 
     public override TransportIntercationStateMachine.ETransportInteractionState GetNextState()
@@ -40,6 +40,22 @@ public class TransportInteractionBringCar : CarBaseInteractionState
             return StateKey;
         }
     }
+
+    public override void OnTriggerEnter(Collider other)
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public override void OnTriggerExit(Collider other)
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public override void OnTriggerStay(Collider other)
+    {
+        throw new System.NotImplementedException();
+    }
+
     public override void UpdateState()
     {
         var direction = (currentWayPoint.transform.position - Context.BigCar.transform.position).normalized;

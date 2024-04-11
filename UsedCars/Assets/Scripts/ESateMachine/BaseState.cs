@@ -17,21 +17,36 @@ public abstract class BaseState<EState> where EState : Enum
     /// </summary>
     public EState StateKey { get; private set; }
     /// <summary>
-    /// calls one time
+    /// Calls one time
     /// </summary>
     public abstract void EnterState();
     /// <summary>
-    /// cals when it exit the state
+    /// Cals when it exit the state
     /// </summary>
     public abstract void ExitState();
     /// <summary>
-    /// calls per frame
+    /// Calls per frame
     /// </summary>
     public abstract void UpdateState();
     /// <summary>
-    /// get a next state
+    /// Get a next state
     /// </summary>
     /// <returns></returns>
     public abstract EState GetNextState();
-
+    /// <summary>
+    ///Abstract Trigger Enter
+    /// </summary>
+    /// <param name="other"></param>
+    public abstract void OnTriggerEnter(Collider other);
+    /// <summary>
+    /// Abstract Ontrigger Stay
+    /// </summary>
+    /// <param name="other"></param>
+    public abstract void OnTriggerStay(Collider other);
+    /// <summary>
+    /// Abstract OnTrigger Exit
+    /// </summary>
+    /// <param name="other"></param>
+    public abstract void OnTriggerExit(Collider other);
 }
+ 

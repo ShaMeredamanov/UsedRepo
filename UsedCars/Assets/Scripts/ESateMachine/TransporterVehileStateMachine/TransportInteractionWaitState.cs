@@ -4,31 +4,61 @@ using UnityEngine;
 
 public class TransportInteractionWaitState : CarBaseInteractionState
 {
-    public TransportInteractionWaitState (TransportCarContextState transportCarContext, TransportIntercationStateMachine.ETransportInteractionState estate) : base(transportCarContext, estate)
+    private float timer = 3;
+    private float timerMax = 3;
+    private Transform convierObject;
+    private ITransportParent transportParent;
+    public TransportInteractionWaitState(TransportCarContextState transportCarContext, TransportIntercationStateMachine.ETransportInteractionState estate) : base(transportCarContext, estate)
     {
         TransportCarContextState transportCarContextState = transportCarContext;
 
     }
     public override void EnterState()
-    {
-        Context.CarObject.SetUsedCars(Context.BigCar.transform);
+     {
+        transportParent = Context.BigCar.GetConveir();
+        Context.Transporter.GetCarObject().SetUsedCars(transportParent);
+        transportParent.SetCarObject(transportParent);
+        
+
+        Context.Transporter.ClearCarObject();
     }
 
     public override void ExitState()
     {
-        Debug.Log("exit state in wait state");
     }
 
     public override TransportIntercationStateMachine.ETransportInteractionState GetNextState()
     {
-        Debug.Log("state changer in wait state");
+        if (transportParent.HasCarObject())
+        {
+            timer -= Time.deltaTime;
+            if (timer < 0)
+            {
+                timer = timerMax;
+                return TransportIntercationStateMachine.ETransportInteractionState.TurnBack;
+            }
+        }
         return StateKey;
+    }
+
+    public override void OnTriggerEnter(Collider other)
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public override void OnTriggerExit(Collider other)
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public override void OnTriggerStay(Collider other)
+    {
+        throw new System.NotImplementedException();
     }
 
     public override void UpdateState()
     {
 
-        Debug.Log("update state in wait state");
     }
-
+    
 }

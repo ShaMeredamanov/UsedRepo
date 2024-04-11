@@ -32,5 +32,5 @@ public abstract class StateManager<EState> : MonoBehaviour where EState : Enum
         CurrentState.EnterState();
         isTarnsitioningState = false;
     }
-  
+   
 }

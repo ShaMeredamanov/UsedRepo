@@ -22,12 +22,10 @@ public class TransportIntercationsGivesCarAway : CarBaseInteractionState
         currentWayPoint = Context.GivesAwayWayPoints.GetNextWayPoint(currentWayPoint);
         parentTransfrom = Context.GivesAwayWayPoints.GetThisComponentTransfrom(parentTransfrom);
         childCount = parentTransfrom.childCount;
-        Debug.Log(childCount, parentTransfrom);
-        Debug.Log("current way point", currentWayPoint);
+        speed = Context.GeneralSpeed;
     }
     public override void ExitState()
     {
-        Debug.Log("this is exit state");
     }
 
     public override TransportIntercationStateMachine.ETransportInteractionState GetNextState()
@@ -41,6 +39,22 @@ public class TransportIntercationsGivesCarAway : CarBaseInteractionState
             return StateKey;
         }
     }
+
+    public override void OnTriggerEnter(Collider other)
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public override void OnTriggerExit(Collider other)
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public override void OnTriggerStay(Collider other)
+    {
+        throw new System.NotImplementedException();
+    }
+
     public override void UpdateState()
     {
         var direction = (currentWayPoint.transform.position - Context.BigCar.transform.position).normalized;

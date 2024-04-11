@@ -15,17 +15,17 @@ PrefabInstance:
     - target: {fileID: 1275573098088492656, guid: 788811a364e1a3640b2ad51d6647434a,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 300.35
       objectReference: {fileID: 0}
     - target: {fileID: 1275573098088492656, guid: 788811a364e1a3640b2ad51d6647434a,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.71
       objectReference: {fileID: 0}
     - target: {fileID: 1275573098088492656, guid: 788811a364e1a3640b2ad51d6647434a,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 8.42
       objectReference: {fileID: 0}
     - target: {fileID: 1275573098088492656, guid: 788811a364e1a3640b2ad51d6647434a,
         type: 3}
@@ -65,7 +65,58 @@ PrefabInstance:
     - target: {fileID: 1275573098088492657, guid: 788811a364e1a3640b2ad51d6647434a,
         type: 3}
       propertyPath: m_Name
-      value: CarTransporter
+      value: CarTransporterPrefabVariant
+      objectReference: {fileID: 0}
+    - target: {fileID: 1407758986669020213, guid: 788811a364e1a3640b2ad51d6647434a,
+        type: 3}
+      propertyPath: _carObjects.Array.size
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1407758986669020213, guid: 788811a364e1a3640b2ad51d6647434a,
+        type: 3}
+      propertyPath: _carObjects.Array.data[0]
+      value: 
+      objectReference: {fileID: 6544956166615425386, guid: 64f555df4cded6144814f384c5c775e5,
+        type: 3}
+    - target: {fileID: 1407758986669020213, guid: 788811a364e1a3640b2ad51d6647434a,
+        type: 3}
+      propertyPath: _carObjects.Array.data[1]
+      value: 
+      objectReference: {fileID: 2294426046728392963, guid: 5263cd0245c121f44aceeb0e4c74c9eb,
+        type: 3}
+    - target: {fileID: 1407758986669020213, guid: 788811a364e1a3640b2ad51d6647434a,
+        type: 3}
+      propertyPath: _carObjects.Array.data[2]
+      value: 
+      objectReference: {fileID: 8780226558365297569, guid: 3e94660d9595d4a40afdfa5594f812ba,
+        type: 3}
+    - target: {fileID: 1407758986669020213, guid: 788811a364e1a3640b2ad51d6647434a,
+        type: 3}
+      propertyPath: _carObjects.Array.data[3]
+      value: 
+      objectReference: {fileID: 2805318044910203289, guid: b4fc973298f68c7429c3ac540c973826,
+        type: 3}
+    - target: {fileID: 1407758986669020213, guid: 788811a364e1a3640b2ad51d6647434a,
+        type: 3}
+      propertyPath: _carObjects.Array.data[4]
+      value: 
+      objectReference: {fileID: 8598065168346568316, guid: 087e5d913f12a63429f03e6f51832ac3,
+        type: 3}
+    - target: {fileID: 1407758986669020213, guid: 788811a364e1a3640b2ad51d6647434a,
+        type: 3}
+      propertyPath: _carObjects.Array.data[5]
+      value: 
+      objectReference: {fileID: 7916610448857646709, guid: e202033498a78f248a818b3e02c5b822,
+        type: 3}
+    - target: {fileID: 5678265466699217045, guid: 788811a364e1a3640b2ad51d6647434a,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.056
+      objectReference: {fileID: 0}
+    - target: {fileID: 5678265466699217045, guid: 788811a364e1a3640b2ad51d6647434a,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.732
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 788811a364e1a3640b2ad51d6647434a, type: 3}
