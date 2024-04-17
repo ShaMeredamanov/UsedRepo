@@ -43,4 +43,10 @@ public class TransporterInGarage : MonoBehaviour , ITransportParent
         carObject.transform.rotation = Quaternion.Euler(0f,90f,0f);
         return carObject;
     }
+
+    public GameObject ActivatedObject() {
+        GameObject gameobject = gameObject;
+        gameobject.SetActive(true);
+        return gameobject;
+    }
 }

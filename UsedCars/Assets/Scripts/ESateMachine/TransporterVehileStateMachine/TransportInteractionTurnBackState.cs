@@ -6,7 +6,7 @@ public class TransportInteractionTurnBackState : CarBaseInteractionState
 {
     private Transform currentWayPoint;
     private float speed;
-    private float distanceThreeShold = 0.5f;
+    private float distanceThreeShold = 2.5f;
     private Quaternion rotataionGoal;
     private Vector3 directionToWoyPoint;
     private float rotateSpeed = 5f;
@@ -30,7 +30,7 @@ public class TransportInteractionTurnBackState : CarBaseInteractionState
     {
         if (childCount - 1 <= currentWayPoint.GetSiblingIndex())
         {
-            return TransportIntercationStateMachine.ETransportInteractionState.BringCar;
+            return TransportIntercationStateMachine.ETransportInteractionState.CheckReceptionState;
         }
         return StateKey;
     }
@@ -54,7 +54,7 @@ public class TransportInteractionTurnBackState : CarBaseInteractionState
     {
         var direction = (currentWayPoint.transform.position - Context.BigCar.transform.position).normalized;
         Context.BigCar.transform.Translate(direction * speed * Time.deltaTime, Space.World);
-        if (Vector3.Distance(Context.BigCar.transform.position, currentWayPoint.position) < distanceThreeShold)
+        if (Vector3.Distance(Context.BigCar.transform.position, currentWayPoint.position) <= distanceThreeShold)
         {
             currentWayPoint = Context.TurnBack.GetNextWayPoint(currentWayPoint);
 

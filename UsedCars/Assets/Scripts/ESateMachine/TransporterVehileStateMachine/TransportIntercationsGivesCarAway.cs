@@ -6,7 +6,7 @@ public class TransportIntercationsGivesCarAway : CarBaseInteractionState
 {
     private Transform currentWayPoint;
     private float speed = 20f;
-    private float distanceThreeShold = 0.5f;
+    private float distanceThreeShold = 2.5f;
     private Quaternion rotataionGoal;
     private Vector3 directionToWoyPoint;
     private float rotateSpeed = 5f;
@@ -59,7 +59,7 @@ public class TransportIntercationsGivesCarAway : CarBaseInteractionState
     {
         var direction = (currentWayPoint.transform.position - Context.BigCar.transform.position).normalized;
         Context.BigCar.transform.Translate(direction * speed * Time.deltaTime, Space.World);
-        if (Vector3.Distance(Context.BigCar.transform.position, currentWayPoint.position) < distanceThreeShold)
+        if (Vector3.Distance(Context.BigCar.transform.position, currentWayPoint.position) <= distanceThreeShold)
         {
             currentWayPoint = Context.GivesAwayWayPoints.GetNextWayPoint(currentWayPoint);
 

@@ -11,7 +11,7 @@ public class EskalatorInteractionMoveGarage : EskalatorBaseIteractionState
 
     private Transform currentWayPoint;
     private float speed;
-    private float distanceThreeShold = 0.5f;
+    private float distanceThreeShold = 2.5f;
     private Quaternion rotataionGoal;
     private Vector3 directionToWoyPoint;
     private float rotateSpeed = 5f;
@@ -40,7 +40,7 @@ public class EskalatorInteractionMoveGarage : EskalatorBaseIteractionState
     {
         var direction = (currentWayPoint.transform.position - EskalatorContext.EskalatorStateMachine.transform.position).normalized;
         EskalatorContext.EskalatorStateMachine.transform.Translate(direction * speed * Time.deltaTime, Space.World);
-        if (Vector3.Distance(EskalatorContext.EskalatorStateMachine.transform.position, currentWayPoint.position) < distanceThreeShold)
+        if (Vector3.Distance(EskalatorContext.EskalatorStateMachine.transform.position, currentWayPoint.position) <= distanceThreeShold)
         {
             currentWayPoint = EskalatorContext.FirstWayPoints.GetNextWayPoint(currentWayPoint);
         }
@@ -55,7 +55,6 @@ public class EskalatorInteractionMoveGarage : EskalatorBaseIteractionState
 
     public override void OnTriggerEnter(Collider other)
     {
-        throw new System.NotImplementedException();
     }
 
     public override void OnTriggerStay(Collider other)

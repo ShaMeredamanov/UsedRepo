@@ -18,9 +18,6 @@ public class TransportInteractionWaitState : CarBaseInteractionState
         transportParent = Context.BigCar.GetConveir();
         Context.Transporter.GetCarObject().SetUsedCars(transportParent);
         transportParent.SetCarObject(transportParent);
-        
-
-        Context.Transporter.ClearCarObject();
     }
 
     public override void ExitState()

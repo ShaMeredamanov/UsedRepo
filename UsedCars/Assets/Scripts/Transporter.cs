@@ -5,8 +5,13 @@ using UnityEngine;
 public class Transporter : MonoBehaviour, ITransportParent {
     [SerializeField] private List<GameObject> _carObjects;
     [SerializeField] private Transform _topPoint;
+    private EskalatorInteractionStateMachine _eskalatorInteractionStateMachine;
     private ITransportParent _carObject;
     private GameObject carTransForm;
+    private void Start() { 
+    
+        _eskalatorInteractionStateMachine = GetComponent<EskalatorInteractionStateMachine>();   
+    }
     public Transform GetTransfroms() {
         Debug.Log("i am transporter");
         return _topPoint;
@@ -17,8 +22,6 @@ public class Transporter : MonoBehaviour, ITransportParent {
     public ITransportParent GetChildCar() {
         _carObject = _topPoint.GetChild(0).GetComponent<ITransportParent>();
         return _carObject;
-
-
     }
 
     public bool HasCarObject() {
@@ -43,4 +46,12 @@ public class Transporter : MonoBehaviour, ITransportParent {
         CarObject carObject = carTransForm.GetComponent<CarObject>();
         return carObject;
     }
+
+    public GameObject ActivatedObject() {
+        GameObject gmObject = gameObject;
+        gmObject.SetActive(true);
+        return gmObject;
+    }
+    public GameObject CarTransform => carTransForm;
+    public EskalatorInteractionStateMachine EskalatorInteractionStateMachine => _eskalatorInteractionStateMachine;
 }

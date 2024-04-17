@@ -2,14 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EskalatorInteractionRapairCar : EskalatorBaseIteractionState
-{/// <summary>
+public class EskalatorInteractionRapairCar : EskalatorBaseIteractionState {/// <summary>
 ///Constructor 
 /// </summary>
 /// <param name="context"></param>
 /// <param name="estate"></param>
-    public EskalatorInteractionRapairCar(EskalatorContextState context, EskalatorInteractionStateMachine.EEskalatorInteractionState estate) : base(context, estate)
-    {
+    public EskalatorInteractionRapairCar(EskalatorContextState context, EskalatorInteractionStateMachine.EEskalatorInteractionState estate) : base(context, estate) {
         EskalatorContextState Context = context;
     }
     /// <summary>
@@ -22,15 +20,14 @@ public class EskalatorInteractionRapairCar : EskalatorBaseIteractionState
     private Transform parentRepairWayPoint;
     private int childCount;
     private float speed;
-    private float distanceThreeShold = 0.5f;
+    private float distanceThreeShold = 2.5f;
     private int index;
     private Vector3 diretionToWayPoint;
     private Quaternion rotationGoal;
     private float rotateSpeed = 10f;
     private float timer = 10f;
     private float timerMax = 10f;
-    public override void EnterState()
-    {
+    public override void EnterState() {
         currentWayPoint = EskalatorContext.ReapirCarWayPoints.GetNextWayPoint(currentWayPoint);
         parentTransfrorm = EskalatorContext.ReapirCarWayPoints.GetThisComponentTransfrom(parentTransfrorm);
         childCount = parentTransfrorm.childCount;
@@ -38,69 +35,44 @@ public class EskalatorInteractionRapairCar : EskalatorBaseIteractionState
 
     }
 
-    public override void ExitState()
-    {
+    public override void ExitState() {
     }
 
-    public override EskalatorInteractionStateMachine.EEskalatorInteractionState GetNextState()
-    {
-        if (childCount - 1 <= currentWayPoint.GetSiblingIndex())
-        {
-            return EskalatorInteractionStateMachine.EEskalatorInteractionState.SellCar;
+    public override EskalatorInteractionStateMachine.EEskalatorInteractionState GetNextState() {
+        if (childCount - 1 <= currentWayPoint.GetSiblingIndex()) {
+            if (!EskalatorContext.FirstRepairSHop.HasCar()) {
+                EskalatorContext.InGarage.GetCarObject().ChangeDurtyCarToWHiteCar();
+                return EskalatorInteractionStateMachine.EEskalatorInteractionState.SecondReapairShop;
+            }
         }
         return StateKey;
     }
 
-    public override void UpdateState()
-    {
+    public override void UpdateState() {
         var direction = (currentWayPoint.transform.position - EskalatorContext.EskalatorStateMachine.transform.position).normalized;
         EskalatorContext.EskalatorStateMachine.transform.Translate(direction * speed * Time.deltaTime, Space.World);
-        if (Vector3.Distance(EskalatorContext.EskalatorStateMachine.transform.position, currentWayPoint.position) < distanceThreeShold)
-        {
-            timer -= Time.deltaTime;
-            if (timer <= 0)
-            {
-                index++;
+        if (Vector3.Distance(EskalatorContext.EskalatorStateMachine.transform.position, currentWayPoint.position) <= distanceThreeShold) {
                 currentWayPoint = EskalatorContext.ReapirCarWayPoints.GetNextWayPoint(currentWayPoint);
-                timer = timerMax;
-                switch (index)
-                {
-                    case 1:
-                        EskalatorContext.InGarage.GetCarObject().ChangeDurtyCarToWHiteCar();
-                        break;
-                    case 2:
-                        EskalatorContext.InGarage.GetCarObject().ChangeWHiteCarToNormalCar();
-                        break;
-                }
-            }
         }
-        if (Vector3.Distance(EskalatorContext.EskalatorStateMachine.transform.position, currentWayPoint.position) <= distanceThreeShold)
-        {
+        if (Vector3.Distance(EskalatorContext.EskalatorStateMachine.transform.position, currentWayPoint.position) <= distanceThreeShold) {
             speed = 0;
-        }
-        else
-        {
+        } else {
             speed = 80;
         }
-     //  RotateTowardsWayPoint();
+        //  RotateTowardsWayPoint();
     }
 
-    public override void OnTriggerEnter(Collider other)
-    {
+    public override void OnTriggerEnter(Collider other) {
+    }
+
+    public override void OnTriggerStay(Collider other) {
         throw new System.NotImplementedException();
     }
 
-    public override void OnTriggerStay(Collider other)
-    {
+    public override void OnTriggerExit(Collider other) {
         throw new System.NotImplementedException();
     }
-
-    public override void OnTriggerExit(Collider other)
-    {
-        throw new System.NotImplementedException();
-    }
-    private void RotateTowardsWayPoint()
-    {
+    private void RotateTowardsWayPoint() {
         diretionToWayPoint = (currentWayPoint.position - EskalatorContext.EskalatorStateMachine.transform.position).normalized;
         rotationGoal = Quaternion.LookRotation(-diretionToWayPoint);
         EskalatorContext.EskalatorStateMachine.transform.rotation = Quaternion.Slerp(EskalatorContext.EskalatorStateMachine.transform.rotation, rotationGoal, rotateSpeed * Time.deltaTime);

@@ -11,12 +11,14 @@ public class TransportCarContextState
     private TransporterInGarage _inGarage;
     private TransporterCarTurnBackWayPoints _turnBack;
     private Transporter _transporter;
+    private FirstReceptionChooseCar _firstReceptionChooseCar;
+    private SecondReceptionSignContract _secondReceptionSignContract; 
     private float _generalSpeed;
     /// <summary>
     /// constructor
     /// </summary>
     /// <param name="waypoint"></param>
-    public TransportCarContextState(TransporterWayPoint.TransportCarWaypoints waypoint, GivingACar.TransporterGivesAwayWayPoints bringCarWayPoints, CarObject carObject, TransporterInGarage inGarage, TransporterCarTurnBackWayPoints turnBack,Transporter transporter ,float generalSpeed, TransportIntercationStateMachine bigCar)
+    public TransportCarContextState(TransporterWayPoint.TransportCarWaypoints waypoint, GivingACar.TransporterGivesAwayWayPoints bringCarWayPoints, CarObject carObject, TransporterInGarage inGarage, TransporterCarTurnBackWayPoints turnBack,Transporter transporter ,float generalSpeed,FirstReceptionChooseCar firstReceptionChooseCar, SecondReceptionSignContract secondReceptionSignContract ,TransportIntercationStateMachine bigCar)
     {
         _generalSpeed = generalSpeed;
         _transporter = transporter;
@@ -26,6 +28,8 @@ public class TransportCarContextState
         _carObject = carObject;
         _inGarage = inGarage;
         _turnBack = turnBack;
+        _firstReceptionChooseCar = firstReceptionChooseCar;
+        _secondReceptionSignContract = secondReceptionSignContract;
     }
     /// <summary>
     /// Read only properties
@@ -59,4 +63,12 @@ public class TransportCarContextState
     /// Read only properties
     /// </summary>
     public float GeneralSpeed => _generalSpeed; 
+    /// <summary>
+    /// Read only properties
+    /// </summary>
+    public FirstReceptionChooseCar FirstReceptionChooseCar => _firstReceptionChooseCar;
+    /// <summary>
+    /// Reaad only properties
+    /// </summary>
+    public SecondReceptionSignContract SecondReceptionSignContract => _secondReceptionSignContract;
 }

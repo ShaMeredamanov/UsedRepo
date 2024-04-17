@@ -8,17 +8,38 @@ public class PeopleInteractionWalkToBuyCarState : PeopleBaseInteractionState
     {
         PeopleContextState peopleContext = peopleContextState;
     }
-
+    private MoveCarSideWayPoint moveCarSideWayPoint;
+    private Transform parentTransform;
+    private Transform currentWayPoint;
+    private int childCount;
+    private float speed;
+    private float distanceThreeShold = 1f;
+    private int index;
+    private Vector3 diretionToWayPoint;
+    private Quaternion rotationGoal;
+    private float rotateSpeed = 10f;
+    private float timer = 10f;
+    private float timerMax = 10f;
+    private const string IS_WALKING = "IsWalking";
     public override void EnterState() {
-        throw new System.NotImplementedException();
+        
+        currentWayPoint = PeopleContext.MoveCarSideWayPoint.GetNextWayPoint(currentWayPoint);
+        moveCarSideWayPoint = PeopleContext.MoveCarSideWayPoint.GetComponent<MoveCarSideWayPoint>();
+        parentTransform = moveCarSideWayPoint.transform;
+        childCount = parentTransform.childCount;
+        speed = PeopleContext.GeneralSpeed;
+        PeopleContext.Animator.SetBool(IS_WALKING, true);
+        
     }
 
     public override void ExitState() {
-        throw new System.NotImplementedException();
     }
 
     public override PeopleStateMachine.EPoepleInteractionState GetNextState() {
-        throw new System.NotImplementedException();
+        if(childCount -1 <= currentWayPoint.GetSiblingIndex()) {
+            PeopleContext.SecondReceptionSignContract.SecondRepairShop.ClearCar();
+        }
+        return StateKey;
     }
 
     public override void OnTriggerEnter(Collider other) {
@@ -34,6 +55,16 @@ public class PeopleInteractionWalkToBuyCarState : PeopleBaseInteractionState
     }
 
     public override void UpdateState() {
-        throw new System.NotImplementedException();
+        diretionToWayPoint = (currentWayPoint.position - PeopleContext.PeopleStateMachine.transform.position).normalized;
+        PeopleContext.PeopleStateMachine.transform.Translate(diretionToWayPoint * speed * Time.deltaTime, Space.World);
+        if (Vector3.Distance(PeopleContext.PeopleStateMachine.transform.position, currentWayPoint.position) < distanceThreeShold) {
+            currentWayPoint = PeopleContext.MoveCarSideWayPoint.GetNextWayPoint(currentWayPoint);
+        }
+        RotateTowardsWayPoint();
+    }
+    private void RotateTowardsWayPoint() {
+        diretionToWayPoint = (currentWayPoint.position - PeopleContext.PeopleStateMachine.transform.position).normalized;
+        rotationGoal = Quaternion.LookRotation(diretionToWayPoint);
+        PeopleContext.PeopleStateMachine.transform.rotation = Quaternion.Slerp(PeopleContext.PeopleStateMachine.transform.rotation, rotationGoal, rotateSpeed * Time.deltaTime);
     }
 }

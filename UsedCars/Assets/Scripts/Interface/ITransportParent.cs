@@ -8,4 +8,5 @@ public interface ITransportParent
     public bool HasCarObject();
     public void SetCarObject(ITransportParent carObject);
     public void ClearCarObject();
+    public GameObject ActivatedObject();
 }

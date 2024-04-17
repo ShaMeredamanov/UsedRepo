@@ -5,6 +5,6 @@ using UnityEngine;
 [CreateAssetMenu()]
 public class CarObjectSO : ScriptableObject {
     public Transform Prefab;
-    public string name;
+    public string Name;
    
 }
