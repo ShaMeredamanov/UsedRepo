@@ -24,7 +24,7 @@ public class PeopleInteractionWalkAroundState : PeopleBaseInteractionState {
 
     public override PeopleStateMachine.EPoepleInteractionState GetNextState() {
             if (PeopleContext.FirstReceptionChooseCar.GetClientTransform() == PeopleContext.PeopleStateMachine.transform) {
-                return PeopleStateMachine.EPoepleInteractionState.WalkCarSideState;
+                return PeopleStateMachine.EPoepleInteractionState.FirstChooseCar;
             }
         return StateKey;
     }

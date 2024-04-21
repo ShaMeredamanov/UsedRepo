@@ -10,10 +10,14 @@ public class PeopleContextState {
     private SecondReceptionSignContract _secondReceptionSignContract;
     private PeopleStateMachine _peopleStateMachine;
     private PeopleWalkCarSideWayPoint _waypointWalkOutSideWayPoint;
+    private CarsParentPoint _carsParentPoint;
     private MoveCarSideWayPoint _moveCarSide;
     private float _generalSpeed;
 
-    public PeopleContextState(Animator animator, PeoplsWayPoint waypointWalkOutSide, float generalSpeed, FirstReceptionChooseCar firstReceptionChooseCar, SecondReceptionSignContract secondReceptionSignContract, PeopleWalkCarSideWayPoint peopleWalkCarSideWayPoint, SignContractWayPoint signContractWayPoint,MoveCarSideWayPoint moveCarSide ,PeopleStateMachine peopleStateMachine) {
+    public PeopleContextState(Animator animator, PeoplsWayPoint waypointWalkOutSide, float generalSpeed,
+        FirstReceptionChooseCar firstReceptionChooseCar, SecondReceptionSignContract secondReceptionSignContract,
+        PeopleWalkCarSideWayPoint peopleWalkCarSideWayPoint, SignContractWayPoint signContractWayPoint, MoveCarSideWayPoint moveCarSide,
+        CarsParentPoint carsParentPoint, PeopleStateMachine peopleStateMachine) {
         _animator = animator;
         _waypointWalkOutSide = waypointWalkOutSide;
         _generalSpeed = generalSpeed;
@@ -22,7 +26,8 @@ public class PeopleContextState {
         _secondReceptionSignContract = secondReceptionSignContract;
         _waypointWalkOutSideWayPoint = peopleWalkCarSideWayPoint;
         _signContractWayPoint = signContractWayPoint;
-        _moveCarSide = moveCarSide; 
+        _moveCarSide = moveCarSide;
+        _carsParentPoint = carsParentPoint;
     }
     /// <summary>
     /// Read Only properties
@@ -36,4 +41,5 @@ public class PeopleContextState {
     public PeopleWalkCarSideWayPoint PeopleWalkCarSideWayPoint => _waypointWalkOutSideWayPoint;
     public SignContractWayPoint SignContractWayPoint => _signContractWayPoint;
     public MoveCarSideWayPoint MoveCarSideWayPoint => _moveCarSide;
+    public CarsParentPoint CarsParentPoint => _carsParentPoint;
 }

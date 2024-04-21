@@ -22,7 +22,6 @@ namespace ReparingWaypoint{
         }
         public Transform GetNextWayPoint(Transform currentWayPoint)
         {
-            hasCarObject = true;
             if (currentWayPoint == null)
             {
 
@@ -30,7 +29,6 @@ namespace ReparingWaypoint{
             }
             if (currentWayPoint.GetSiblingIndex() < transform.childCount - 1)
             {
-                hasCarObject = false;
                 return transform.GetChild(currentWayPoint.GetSiblingIndex() + 1);
             }
             else
@@ -42,14 +40,6 @@ namespace ReparingWaypoint{
         {
             currentTransfrom = transform;
             return currentTransfrom;
-        }
-        /// <summary>
-        /// Read Only properties
-        /// </summary>
-        /// <returns></returns>
-        public bool HasCarObject()
-        {
-            return hasCarObject;
-        }
+        } 
     }
 }

@@ -12,7 +12,6 @@ public class EskalatorInteractionStateMachine : StateManager<EskalatorInteractio
     }
     [SerializeField] private EskalatorWayPoint.EskalatorFirstWayPoints eskalatorWayPoint;
     [SerializeField] private ReparingWaypoint.ReapirCarWayPoints _reapirCarWayPoints;
-    [SerializeField] private ParentConveinerWayPoint.ParentConveinerWayPoint parentConveiner;
     [SerializeField] private ReparingWaypoint.ReapirCarWayPoints reparingCarWayPointsSecond;
     [SerializeField] private ReparingWaypoint.ReapirCarWayPoints reparingCarWayPointsThirdCellCar;
     [SerializeField] private FirstRepiarShop _firstReapirShop;
@@ -26,7 +25,7 @@ public class EskalatorInteractionStateMachine : StateManager<EskalatorInteractio
 
     private void Awake() {
         _inGarage = GetComponent<TransporterInGarage>();
-        _eskalatorContext = new EskalatorContextState(eskalatorWayPoint, _inGarage, _reapirCarWayPoints, parentConveiner, generalSpeed, this, reparingCarWayPointsSecond, reparingCarWayPointsThirdCellCar, _firstReapirShop, _secondRepairShop);
+        _eskalatorContext = new EskalatorContextState(eskalatorWayPoint, _inGarage, _reapirCarWayPoints, generalSpeed, this, reparingCarWayPointsSecond, reparingCarWayPointsThirdCellCar, _firstReapirShop, _secondRepairShop);
         InitilizeStates();
     }
     private void InitilizeStates() {

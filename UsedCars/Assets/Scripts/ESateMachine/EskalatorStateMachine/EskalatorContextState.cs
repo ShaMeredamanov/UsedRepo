@@ -11,7 +11,6 @@ public class EskalatorContextState {
     private TransporterInGarage _inGarage;
     private ReparingWaypoint.ReapirCarWayPoints _reapirCarWayPoints;
     private float _generalSpeed;
-    private ParentConveinerWayPoint.ParentConveinerWayPoint _parentConveinerWayPoint;
     private ReparingWaypoint.ReapirCarWayPoints _secondRepairShopWayPoint;
     private ReparingWaypoint.ReapirCarWayPoints reparingCarWayPointsThirdCellCar;
     private FirstRepiarShop _firstRepairShop;
@@ -21,8 +20,8 @@ public class EskalatorContextState {
     /// </summary>
     /// <param name="firstWayPoints"></param>
     /// <param name="stateMachine"></param>
-    public EskalatorContextState(EskalatorWayPoint.EskalatorFirstWayPoints firstWayPoints, TransporterInGarage inGarage, ReparingWaypoint.ReapirCarWayPoints reapirCarWayPoints, ParentConveinerWayPoint.ParentConveinerWayPoint parentConveinerWayPoint,float generalSpeed, EskalatorInteractionStateMachine stateMachine, ReparingWaypoint.ReapirCarWayPoints secondRepairShopWayPoint, ReparingWaypoint.ReapirCarWayPoints reparingCarWayPointsThirdCellCar, FirstRepiarShop firstRepairChooseCar, SecondRepairShop secondRepairChooseCar) {
-        _parentConveinerWayPoint = parentConveinerWayPoint;
+    public EskalatorContextState(EskalatorWayPoint.EskalatorFirstWayPoints firstWayPoints, TransporterInGarage inGarage, ReparingWaypoint.ReapirCarWayPoints reapirCarWayPoints,float generalSpeed, EskalatorInteractionStateMachine stateMachine, ReparingWaypoint.ReapirCarWayPoints secondRepairShopWayPoint, ReparingWaypoint.ReapirCarWayPoints reparingCarWayPointsThirdCellCar, FirstRepiarShop firstRepairChooseCar, SecondRepairShop secondRepairChooseCar) {
+   
         _reapirCarWayPoints = reapirCarWayPoints;
         _stateMachine = stateMachine;
         _firstWayPoints = firstWayPoints;
@@ -40,7 +39,6 @@ public class EskalatorContextState {
     public EskalatorInteractionStateMachine EskalatorStateMachine => _stateMachine;
     public TransporterInGarage InGarage => _inGarage;
     public ReparingWaypoint.ReapirCarWayPoints ReapirCarWayPoints => _reapirCarWayPoints;
-    public ParentConveinerWayPoint.ParentConveinerWayPoint ParentConveinerWayPoint => _parentConveinerWayPoint;
     public float GeneralSpeed => _generalSpeed;
     public ReparingWaypoint.ReapirCarWayPoints  SecondRepairShopWayPoint => _secondRepairShopWayPoint;
 

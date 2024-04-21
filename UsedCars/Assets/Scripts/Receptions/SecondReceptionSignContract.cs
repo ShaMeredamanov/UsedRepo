@@ -12,7 +12,6 @@ public class SecondReceptionSignContract : MonoBehaviour, IReceptionParent {
     [SerializeField] private List<Transform> buyers;
     [SerializeField] private UiCanvas _uiCanvas;
     private PlayerDjoystick _playerDjoystick;
-    private PeopleStateMachine _peopleStateMachine;
     private Transform _currentClient;
     private EskalatorInteractionStateMachine _interactionStateMachine;  
 
@@ -33,9 +32,7 @@ public class SecondReceptionSignContract : MonoBehaviour, IReceptionParent {
     }
     public void GetClient(Transform currentCleint) {
         _currentClient = currentCleint;
-        _peopleStateMachine = _currentClient.GetComponent<PeopleStateMachine>();
         buyers.Add(_currentClient);
-
 
     }
     public bool HasPlayer() {
@@ -48,7 +45,6 @@ public class SecondReceptionSignContract : MonoBehaviour, IReceptionParent {
     public Transform GetClientTransform() {
         throw new System.NotImplementedException();
     }
-
     private void OnTriggerEnter(Collider other) {
         if (other.TryGetComponent<PlayerDjoystick>(out var playerDjoystick)) {
             _interactionStateMachine = _secondRepairShop.EskalatorInteractionStateMachineList[0];
@@ -64,9 +60,5 @@ public class SecondReceptionSignContract : MonoBehaviour, IReceptionParent {
             _playerAnimator.SetBool(WORK, false);
         }
     }
-    /// <summary>
-    /// Read Only properties
-    /// </summary>
     public SecondRepairShop SecondRepairShop => _secondRepairShop;
-    public PeopleStateMachine PeopleStateMachine => _peopleStateMachine;
 }

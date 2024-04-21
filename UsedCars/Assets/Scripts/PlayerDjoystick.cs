@@ -19,6 +19,7 @@ public class PlayerDjoystick : MonoBehaviour {
     private Vector3 currentPosition;
     private void LateUpdate() {
         _rigidbody.velocity = new Vector3(-_floatingDjoystick.Horizontal * _moveSpeed, _rigidbody.velocity.y, -_floatingDjoystick.Vertical * _moveSpeed);
+
         if (transform.position.x > 315) {
             transform.position = new Vector3(315, transform.position.y, transform.position.z);
         } else if (transform.position.x < -197f) {

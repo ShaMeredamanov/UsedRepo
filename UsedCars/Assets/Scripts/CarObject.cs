@@ -24,7 +24,4 @@ public class CarObject : MonoBehaviour {
         durtyCar.SetActive(false);
         normalCar.SetActive(true);
     }
-    /// <summary>
-    /// Read only properties
-    /// </summary>
 }

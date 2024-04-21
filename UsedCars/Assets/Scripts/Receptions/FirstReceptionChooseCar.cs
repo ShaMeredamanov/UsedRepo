@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class FirstReceptionChooseCar : MonoBehaviour, IReceptionParent {
-
-    private const string WORK = "Work";
     [SerializeField] private Animator _playerAnimator;
     [SerializeField] private List<Transform> _clients;
     [SerializeField] private CapsuleCollider _capsula;
@@ -13,7 +11,6 @@ public class FirstReceptionChooseCar : MonoBehaviour, IReceptionParent {
     private PlayerDjoystick _playerDjoystick;
     private Transform currentBuyer;
     private PeopleStateMachine _peopleStateMachine;
-    private bool gotOrder;
     public bool CanGetClient() {
         return currentBuyer == null;
     }
@@ -30,7 +27,6 @@ public class FirstReceptionChooseCar : MonoBehaviour, IReceptionParent {
             Debug.LogError("there is no clients");
         }
     }
-
     public Transform GetClientTransform() {
         return currentBuyer;
     }
@@ -47,7 +43,6 @@ public class FirstReceptionChooseCar : MonoBehaviour, IReceptionParent {
     private void OnTriggerEnter(Collider other) {
         if (other.TryGetComponent<PlayerDjoystick>(out var playerDjoystick)) {
             _playerDjoystick = playerDjoystick;
-            gotOrder = true;
             if (!_peopleStateMachine.CheckStateIsStateInsideRoom()) {
                 _capsula.enabled = false;
             }
@@ -55,7 +50,6 @@ public class FirstReceptionChooseCar : MonoBehaviour, IReceptionParent {
     }
     private void OnTriggerExit(Collider other) {
         if (other.TryGetComponent<PlayerDjoystick>(out var playerDjoystick)) {
-            gotOrder = false;
             ClearPlayer();
         }
     }
@@ -67,23 +61,6 @@ public class FirstReceptionChooseCar : MonoBehaviour, IReceptionParent {
     public void EnableCapsuleColliderComponent() {
         _capsula.enabled = true;
     }
-    /// <summary>
-    /// Read only properties
-    /// </summary>
-    public PlayerDjoystick PlayerDjoystick => _playerDjoystick;
-    /// <summary>
-    /// Read only properties
-    /// </summary>
-    public List<Transform> Clients => _clients;
-    /// <summary>
-    /// Read only Properties
-    /// </summary>
-    public bool GotOrder() {
-        return gotOrder;
-    }
-    /// <summary>
-    /// Read Only properties
-    /// </summary>
     public FirstRepiarShop FirstRepiarShop => _firstRepiarShop;
 
 }

@@ -1,19 +1,14 @@
 using System.Collections;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using UnityEngine;
 
 public class FirstRepiarShop : MonoBehaviour, IRepairShopParent {
 
     private const string REPAIR = "Repair";
     private const string WORK = "Work";
-
-
     [SerializeField] private Transporter _transporter;
     [SerializeField] private CapsuleCollider _capsuleCollider;
     [SerializeField] private Animator _reapairAnimator;
     [SerializeField] private Animator _playerAnimator;
-    private EskalatorInteractionStateMachine _interactionStateMachine;
     private PlayerDjoystick _playerDjoystick;
     private CarObject _currentCar;
     private float timer = 5f;
@@ -36,7 +31,6 @@ public class FirstRepiarShop : MonoBehaviour, IRepairShopParent {
             _playerDjoystick = playerDjoystick;
         }
         if (other.TryGetComponent<EskalatorInteractionStateMachine>(out var eskalatorInteractionState)) {
-            _interactionStateMachine = eskalatorInteractionState;
             hasCar = true;
         }
     }
@@ -76,7 +70,6 @@ public class FirstRepiarShop : MonoBehaviour, IRepairShopParent {
             _playerAnimator.SetBool(WORK, false);
         }
         }
-
         private IEnumerator GetCarNumerator() {
             yield return new WaitForSecondsRealtime(0.5f);
             GetCar(transform);

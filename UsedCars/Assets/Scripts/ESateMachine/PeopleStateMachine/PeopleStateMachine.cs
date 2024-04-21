@@ -9,6 +9,7 @@ public class PeopleStateMachine : StateManager<PeopleStateMachine.EPoepleInterac
         BuyCarState,
         WalkCarSideState,
         SignContractState,
+        FirstChooseCar,
     }
 
     private PeopleContextState _peopleContext;
@@ -20,10 +21,11 @@ public class PeopleStateMachine : StateManager<PeopleStateMachine.EPoepleInterac
     [SerializeField] private PeopleWalkCarSideWayPoint _wayPointsSide;
     [SerializeField] private SignContractWayPoint _signContractWayPoint;
     [SerializeField] private MoveCarSideWayPoint _moveCarSideWayPoint;
+    [SerializeField] private CarsParentPoint _carsParentPoint;
     [SerializeField] private Animator _animator;
     private float _generalSpeed = 40f;
     private void Awake() {
-        _peopleContext = new PeopleContextState(_animator, _wayPoints, _generalSpeed, _firstReception, _secondReception, _wayPointsSide, _signContractWayPoint, _moveCarSideWayPoint,this);
+        _peopleContext = new PeopleContextState(_animator, _wayPoints, _generalSpeed, _firstReception, _secondReception, _wayPointsSide, _signContractWayPoint, _moveCarSideWayPoint, _carsParentPoint, this);
         InitializedStates();
     }
     private void InitializedStates() {
@@ -32,6 +34,7 @@ public class PeopleStateMachine : StateManager<PeopleStateMachine.EPoepleInterac
         States.Add(EPoepleInteractionState.BuyCarState, new PeopleInteractionWalkToBuyCarState(_peopleContext, EPoepleInteractionState.BuyCarState));
         States.Add(EPoepleInteractionState.WalkCarSideState, new PeopleInteractionWalkCarSideState(_peopleContext, EPoepleInteractionState.WalkCarSideState));
         States.Add(EPoepleInteractionState.SignContractState, new PeopleInteractionSignContractState(_peopleContext, EPoepleInteractionState.SignContractState));
+        States.Add(EPoepleInteractionState.FirstChooseCar, new PeopleInteractionFirstChooseCar(_peopleContext, EPoepleInteractionState.FirstChooseCar));
         CurrentState = States[EPoepleInteractionState.WalkAroundState];
     }
     public bool CheckStateIsStateInsideRoom() {
