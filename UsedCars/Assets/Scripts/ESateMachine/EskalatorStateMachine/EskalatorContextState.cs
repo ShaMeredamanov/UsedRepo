@@ -15,12 +15,17 @@ public class EskalatorContextState {
     private ReparingWaypoint.ReapirCarWayPoints reparingCarWayPointsThirdCellCar;
     private FirstRepiarShop _firstRepairShop;
     private SecondRepairShop _secondRepairShop;
+    private FirstCarRepairWayPointParent _firstCarRepairWayPointParent;
     /// <summary>
     /// Constructor
     /// </summary>
     /// <param name="firstWayPoints"></param>
     /// <param name="stateMachine"></param>
-    public EskalatorContextState(EskalatorWayPoint.EskalatorFirstWayPoints firstWayPoints, TransporterInGarage inGarage, ReparingWaypoint.ReapirCarWayPoints reapirCarWayPoints,float generalSpeed, EskalatorInteractionStateMachine stateMachine, ReparingWaypoint.ReapirCarWayPoints secondRepairShopWayPoint, ReparingWaypoint.ReapirCarWayPoints reparingCarWayPointsThirdCellCar, FirstRepiarShop firstRepairChooseCar, SecondRepairShop secondRepairChooseCar) {
+    public EskalatorContextState(EskalatorWayPoint.EskalatorFirstWayPoints firstWayPoints, TransporterInGarage inGarage, 
+        ReparingWaypoint.ReapirCarWayPoints reapirCarWayPoints,
+        float generalSpeed, EskalatorInteractionStateMachine stateMachine, 
+        ReparingWaypoint.ReapirCarWayPoints secondRepairShopWayPoint, ReparingWaypoint.ReapirCarWayPoints 
+        reparingCarWayPointsThirdCellCar, FirstRepiarShop firstRepairChooseCar, SecondRepairShop secondRepairChooseCar, FirstCarRepairWayPointParent firstCarRepairWayPointParent) {
    
         _reapirCarWayPoints = reapirCarWayPoints;
         _stateMachine = stateMachine;
@@ -31,6 +36,7 @@ public class EskalatorContextState {
         this.reparingCarWayPointsThirdCellCar = reparingCarWayPointsThirdCellCar;
         _firstRepairShop = firstRepairChooseCar;
         _secondRepairShop = secondRepairChooseCar;
+        _firstCarRepairWayPointParent = firstCarRepairWayPointParent;
     }
     /// <summary>
     /// Read only properties
@@ -45,4 +51,5 @@ public class EskalatorContextState {
     public ReparingWaypoint.ReapirCarWayPoints ReparingCarWayPointsThirdCellCar => reparingCarWayPointsThirdCellCar;
     public FirstRepiarShop FirstRepairSHop => _firstRepairShop;
     public SecondRepairShop SecondRepairShop => _secondRepairShop;
+    public FirstCarRepairWayPointParent FirstCarRepairWayPointParent => _firstCarRepairWayPointParent;
 }

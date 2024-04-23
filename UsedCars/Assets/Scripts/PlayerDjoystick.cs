@@ -5,9 +5,6 @@ using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody), typeof(BoxCollider))]
 public class PlayerDjoystick : MonoBehaviour {
-
-
-
     private const string IS_RUN = "IsRun";
     private const string WORK = "Work";
 
@@ -16,6 +13,7 @@ public class PlayerDjoystick : MonoBehaviour {
     [SerializeField] private Animator _animator;
     [SerializeField] private Transform _transformPlayer;
     [SerializeField] private float _moveSpeed;
+    
     private Vector3 currentPosition;
     private void LateUpdate() {
         _rigidbody.velocity = new Vector3(-_floatingDjoystick.Horizontal * _moveSpeed, _rigidbody.velocity.y, -_floatingDjoystick.Vertical * _moveSpeed);

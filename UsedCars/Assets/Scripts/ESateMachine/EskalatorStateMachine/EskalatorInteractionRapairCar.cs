@@ -13,23 +13,22 @@ public class EskalatorInteractionRapairCar : EskalatorBaseIteractionState {/// <
     /// <summary>
     /// At the moment i just put second when i get crash car i changed it with crash car after chnage state
     /// </summary>
-
-    private ReparingWaypoint.ReapirCarWayPoints reapirCarWayPoints;
+    /// 
+    private Transform repaiCarWayPointTransform;
+    private ReparingWaypoint.ReapirCarWayPoints _reapirCarWayPoints;
     private Transform currentWayPoint;
     private Transform parentTransfrorm;
-    private Transform parentRepairWayPoint;
     private int childCount;
     private float speed;
     private float distanceThreeShold = 2.5f;
-    private int index;
     private Vector3 diretionToWayPoint;
     private Quaternion rotationGoal;
     private float rotateSpeed = 10f;
-    private float timer = 10f;
-    private float timerMax = 10f;
     public override void EnterState() {
-        currentWayPoint = EskalatorContext.ReapirCarWayPoints.GetNextWayPoint(currentWayPoint);
-        parentTransfrorm = EskalatorContext.ReapirCarWayPoints.GetThisComponentTransfrom(parentTransfrorm);
+        repaiCarWayPointTransform = EskalatorContext.FirstCarRepairWayPointParent.GetNExtQueue(EskalatorContext.EskalatorStateMachine,repaiCarWayPointTransform);
+        _reapirCarWayPoints = repaiCarWayPointTransform.GetComponent<ReparingWaypoint.ReapirCarWayPoints>();
+        currentWayPoint = _reapirCarWayPoints.GetNextWayPoint(currentWayPoint);
+        parentTransfrorm = _reapirCarWayPoints.GetThisComponentTransfrom(parentTransfrorm);
         childCount = parentTransfrorm.childCount;
         speed = EskalatorContext.GeneralSpeed;
 
@@ -39,11 +38,20 @@ public class EskalatorInteractionRapairCar : EskalatorBaseIteractionState {/// <
     }
 
     public override EskalatorInteractionStateMachine.EEskalatorInteractionState GetNextState() {
-        if (childCount - 1 <= currentWayPoint.GetSiblingIndex()) {
-            if (!EskalatorContext.FirstRepairSHop.HasCar()) {
-                EskalatorContext.InGarage.GetCarObject().ChangeDurtyCarToWHiteCar();
-                return EskalatorInteractionStateMachine.EEskalatorInteractionState.SecondReapairShop;
-            }
+        //if (childCount - 1 <= currentWayPoint.GetSiblingIndex()) {
+        //    if (!EskalatorContext.FirstRepairSHop.HasCar()) {
+        //        EskalatorContext.InGarage.GetCarObject().ChangeDurtyCarToWHiteCar();
+        //        return EskalatorInteractionStateMachine.EEskalatorInteractionState.SecondReapairShop;
+        //    }
+        //}
+        if (EskalatorContext.EskalatorStateMachine.GetWayPointAgain()) {
+            repaiCarWayPointTransform = EskalatorContext.FirstCarRepairWayPointParent.GetFreeWayPoint(EskalatorContext.EskalatorStateMachine, repaiCarWayPointTransform);
+            _reapirCarWayPoints = repaiCarWayPointTransform.GetComponent<ReparingWaypoint.ReapirCarWayPoints>();
+            currentWayPoint = _reapirCarWayPoints.GetNextWayPoint(currentWayPoint);
+            parentTransfrorm = _reapirCarWayPoints.GetThisComponentTransfrom(parentTransfrorm);
+            childCount = parentTransfrorm.childCount;
+            EskalatorContext.EskalatorStateMachine.GetWayPointAgainToFalse();
+            speed = 80f;
         }
         return StateKey;
     }
@@ -52,7 +60,7 @@ public class EskalatorInteractionRapairCar : EskalatorBaseIteractionState {/// <
         var direction = (currentWayPoint.transform.position - EskalatorContext.EskalatorStateMachine.transform.position).normalized;
         EskalatorContext.EskalatorStateMachine.transform.Translate(direction * speed * Time.deltaTime, Space.World);
         if (Vector3.Distance(EskalatorContext.EskalatorStateMachine.transform.position, currentWayPoint.position) <= distanceThreeShold) {
-                currentWayPoint = EskalatorContext.ReapirCarWayPoints.GetNextWayPoint(currentWayPoint);
+            currentWayPoint = _reapirCarWayPoints.GetNextWayPoint(currentWayPoint);
         }
         if (Vector3.Distance(EskalatorContext.EskalatorStateMachine.transform.position, currentWayPoint.position) <= distanceThreeShold) {
             speed = 0;

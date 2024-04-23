@@ -1,5 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
+
 using UnityEngine;
 
 public class PeopleInteractionWalkToBuyCarState : PeopleBaseInteractionState
@@ -14,12 +13,9 @@ public class PeopleInteractionWalkToBuyCarState : PeopleBaseInteractionState
     private int childCount;
     private float speed;
     private float distanceThreeShold = 1f;
-    private int index;
     private Vector3 diretionToWayPoint;
     private Quaternion rotationGoal;
     private float rotateSpeed = 10f;
-    private float timer = 10f;
-    private float timerMax = 10f;
     private const string IS_WALKING = "IsWalking";
     public override void EnterState() {
         
@@ -36,14 +32,16 @@ public class PeopleInteractionWalkToBuyCarState : PeopleBaseInteractionState
     }
 
     public override PeopleStateMachine.EPoepleInteractionState GetNextState() {
-        if(childCount -1 <= currentWayPoint.GetSiblingIndex()) {
-            PeopleContext.SecondReceptionSignContract.SecondRepairShop.ClearCar();
+        //if(childCount -1 <= currentWayPoint.GetSiblingIndex()) {
+        //    PeopleContext.SecondReceptionSignContract.SecondRepairShop.ClearCar();
+        //}
+        if(currentWayPoint.GetSiblingIndex() >= 2) {
+            PeopleContext.PeopleStateMachine.EnableCollider();
         }
         return StateKey;
     }
 
     public override void OnTriggerEnter(Collider other) {
-        throw new System.NotImplementedException();
     }
 
     public override void OnTriggerExit(Collider other) {

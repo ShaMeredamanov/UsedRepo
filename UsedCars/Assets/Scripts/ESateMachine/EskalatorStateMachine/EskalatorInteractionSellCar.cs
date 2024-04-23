@@ -8,22 +8,19 @@ public class EskalatorInteractionSellCar : EskalatorBaseIteractionState {
     }
     private Transform currentWayPoint;
     private Transform parentTransfrorm;
-    private Transform parentRepairWayPoint;
     private int childCount;
     private float speed;
     private float distanceThreeShold = 2.5f;
-    private int index;
     private Vector3 diretionToWayPoint;
     private Quaternion rotationGoal;
     private float rotateSpeed = 10f;
-    private float timer = 5f;
-    private float timerMax = 5f;
     private bool isPeopleBuyed;
     public override void EnterState() {
         currentWayPoint = EskalatorContext.ReparingCarWayPointsThirdCellCar.GetNextWayPoint(currentWayPoint);
         parentTransfrorm = EskalatorContext.ReparingCarWayPointsThirdCellCar.GetThisComponentTransfrom(parentTransfrorm);
         childCount = parentTransfrorm.childCount;
         speed = EskalatorContext.GeneralSpeed;
+        EskalatorContext.InGarage.GetCarObject().ChangeWHiteCarToNormalCar();
         isPeopleBuyed = false;
     }
 

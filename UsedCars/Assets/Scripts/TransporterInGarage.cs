@@ -7,15 +7,12 @@ public class TransporterInGarage : MonoBehaviour , ITransportParent
     [SerializeField] private Transform topPoint;
     private ITransportParent conveirObject;
     private CarObject carObject;
+    private EskalatorInteractionStateMachine stateMachineEskalator;
   
     public Transform GetTransfroms()
     {
         return topPoint;
     }
-    /// <summary>
-    ///Read only  
-    /// </summary>
-    /// <returns></returns>
     public Transform GetTopPoint()
     {
         return topPoint;
@@ -48,5 +45,9 @@ public class TransporterInGarage : MonoBehaviour , ITransportParent
         GameObject gameobject = gameObject;
         gameobject.SetActive(true);
         return gameobject;
+    }
+    public EskalatorInteractionStateMachine StateMachineEskaltor() {
+        stateMachineEskalator = GetComponent<EskalatorInteractionStateMachine>();   
+        return stateMachineEskalator;
     }
 }

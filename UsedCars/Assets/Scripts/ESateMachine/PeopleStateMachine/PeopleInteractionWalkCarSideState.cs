@@ -1,6 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Threading;
+
 using UnityEngine;
 
 public class PeopleInteractionWalkCarSideState : PeopleBaseInteractionState {
@@ -21,7 +19,6 @@ public class PeopleInteractionWalkCarSideState : PeopleBaseInteractionState {
     private const string IS_WALKING = "IsWalking";
     private Transform parentTransform;
     public override void EnterState() {
-        Debug.Log("walk car side enter state");
         currentWayPoint = PeopleContext.PeopleWalkCarSideWayPoint.GetNextWayPoint(currentWayPoint);
         peopleWalkCarSide = PeopleContext.WayPointWalkoutSide.GetComponent<PeopleWalkCarSideWayPoint>();
         parentTransform = PeopleContext.PeopleWalkCarSideWayPoint.GetThisComponentTransfrom(parentTransform);

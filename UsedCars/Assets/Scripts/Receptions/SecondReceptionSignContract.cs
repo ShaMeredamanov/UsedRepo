@@ -1,64 +1,65 @@
-using System.Collections;
+
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SecondReceptionSignContract : MonoBehaviour, IReceptionParent {
-
-    private const string WORK = "Work";
-
+public class SecondReceptionSignContract : MonoBehaviour {
     [SerializeField] private Animator _playerAnimator;
     [SerializeField] private FirstReceptionChooseCar _firstChooseCar;
     [SerializeField] private SecondRepairShop _secondRepairShop;
     [SerializeField] private List<Transform> buyers;
     [SerializeField] private UiCanvas _uiCanvas;
+    [SerializeField] private WaitingQueueParent _waitingQueueParent;
     private PlayerDjoystick _playerDjoystick;
     private Transform _currentClient;
-    private EskalatorInteractionStateMachine _interactionStateMachine;  
-
+    private EskalatorInteractionStateMachine _interactionStateMachine;
+    private float timer = 5f;
+    private float timerMax = 5f;
     private void Start() {
         buyers = new List<Transform>();
     }
     public bool CanGetClient() {
-        return _currentClient == null;
+        return buyers[0] == null;
     }
     public void ClearClient() {
         if (buyers.Count > 0) {
             buyers.RemoveAt(0);
+            _waitingQueueParent.DecrementIndex();
             _uiCanvas.GEtMoney();
             _currentClient = null;
-            _playerAnimator.SetBool(WORK, false);
             _secondRepairShop.RemoveFromList();
+            for (int i = 0; i < buyers.Count; i++) {
+                buyers[i].GetComponent<PeopleStateMachine>().ChangeToGetStateAgaingToTrue();
+            }
         }
     }
     public void GetClient(Transform currentCleint) {
         _currentClient = currentCleint;
         buyers.Add(_currentClient);
-
-    }
-    public bool HasPlayer() {
-        return _playerDjoystick != null;
     }
     public void ClearPlayer() {
         _playerDjoystick = null;
     }
-
-    public Transform GetClientTransform() {
-        throw new System.NotImplementedException();
-    }
     private void OnTriggerEnter(Collider other) {
         if (other.TryGetComponent<PlayerDjoystick>(out var playerDjoystick)) {
-            _interactionStateMachine = _secondRepairShop.EskalatorInteractionStateMachineList[0];
-            if (_interactionStateMachine != null) {
-                _playerDjoystick = playerDjoystick;
-                _playerAnimator.SetBool(WORK, true);
+            _playerDjoystick = playerDjoystick;
+        }
+    }
+    private void OnTriggerStay(Collider other) {
+        if (_playerDjoystick != null) {
+
+            timer -= Time.deltaTime;
+            if (_secondRepairShop.EskalatorInteractionStateMachineList.Count >= 1) {
+                if (timer <= 0) {
+                    timer = timerMax;
+                    buyers[0].GetComponent<PeopleStateMachine>().ChangeState();
+                    ClearClient();
+                }
             }
         }
     }
     private void OnTriggerExit(Collider other) {
         if (other.TryGetComponent<PlayerDjoystick>(out var playerDjoystick)) {
             ClearPlayer();
-            _playerAnimator.SetBool(WORK, false);
         }
     }
-    public SecondRepairShop SecondRepairShop => _secondRepairShop;
 }

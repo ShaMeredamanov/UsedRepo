@@ -18,6 +18,8 @@ public class TransportIntercationStateMachine : StateManager<TransportIntercatio
     [SerializeField] private Transform convierSPawnPoint;
     [SerializeField] private FirstReceptionChooseCar _firtsReceptionChoosCar;
     [SerializeField] private SecondReceptionSignContract _secondReceptionSignContract;
+    [SerializeField] private FirstRepiarShop _repiarShop;
+
     private Transporter _transporter;
     private float _generalSpeed = 80f;
 
@@ -45,6 +47,8 @@ public class TransportIntercationStateMachine : StateManager<TransportIntercatio
     public ITransportParent GetConveir() {
         var conveir = Instantiate(transporterInGarage.gameObject, convierSPawnPoint.position, convierSPawnPoint.rotation);
         var iTransporterParent = conveir.GetComponent<ITransportParent>();
+        var transporterInGarages = conveir.GetComponent<TransporterInGarage>();
+        _repiarShop.TransporterIngarage(transporterInGarages);
         iTransporterParent.ActivatedObject();
         return iTransporterParent;
     }

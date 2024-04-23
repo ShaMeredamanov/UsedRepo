@@ -15,6 +15,7 @@ public class EskalatorInteractionSecondRepairShopState : EskalatorBaseIteraction
     public override void EnterState() {
         currentWayPoint = EskalatorContext.SecondRepairShopWayPoint.GetNextWayPoint(currentWayPoint);
         speed = EskalatorContext.GeneralSpeed;
+        EskalatorContext.InGarage.GetCarObject().ChangeDurtyCarToWHiteCar();
     }
 
     public override void ExitState() {
@@ -25,7 +26,7 @@ public class EskalatorInteractionSecondRepairShopState : EskalatorBaseIteraction
             if (!EskalatorContext.SecondRepairShop.SecondReceptionSignContract.CanGetClient()) {
                 timer -= Time.deltaTime;
                 if (timer <= 0) {
-                    EskalatorContext.InGarage.GetCarObject().ChangeWHiteCarToNormalCar();
+                  
                     timer = timerMax;
                     return EskalatorInteractionStateMachine.EEskalatorInteractionState.SellCar;
                 }
@@ -46,7 +47,6 @@ public class EskalatorInteractionSecondRepairShopState : EskalatorBaseIteraction
     }
 
     public override void UpdateState() {
-
         var direction = (currentWayPoint.transform.position - EskalatorContext.EskalatorStateMachine.transform.position).normalized;
         EskalatorContext.EskalatorStateMachine.transform.Translate(direction * speed * Time.deltaTime, Space.World);
         if (Vector3.Distance(EskalatorContext.EskalatorStateMachine.transform.position, currentWayPoint.position) <= distanceThreeShold) {

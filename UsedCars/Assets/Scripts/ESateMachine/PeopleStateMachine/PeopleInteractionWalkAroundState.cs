@@ -37,7 +37,6 @@ public class PeopleInteractionWalkAroundState : PeopleBaseInteractionState {
         RotateTowardsWayPoint();
     }
     public override void OnTriggerEnter(Collider other) {
-        throw new System.NotImplementedException();
     }
 
     public override void OnTriggerExit(Collider other) {

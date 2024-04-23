@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PeopleInteractionFirstChooseCar : PeopleBaseInteractionState {
@@ -43,10 +41,7 @@ public class PeopleInteractionFirstChooseCar : PeopleBaseInteractionState {
             speed = 0;
             PeopleContext.Animator.SetBool(IS_WALKING, false);
             timer -= Time.deltaTime;
-            if (timer <= 0) {
-                timer = timerMax;
-                return PeopleStateMachine.EPoepleInteractionState.WalkCarSideState;
-            }
+          
         }
         return StateKey;
     }
