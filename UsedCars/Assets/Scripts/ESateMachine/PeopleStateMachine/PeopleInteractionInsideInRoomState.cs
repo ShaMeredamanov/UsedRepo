@@ -35,6 +35,17 @@ public class PeopleInteractionInsideInRoomState : PeopleBaseInteractionState {
                     return PeopleStateMachine.EPoepleInteractionState.SignContractState;
                 }
             }
+        } else if (PeopleContext.FirstReceptionChooseCar.FemaleCashier != null) {
+            if (waitingQueueParent.ChildrensTransforms.Count - 1 > waitingQueueParent.Index) {
+                timer -= Time.deltaTime;
+                if (timer < 0) {
+                    PeopleContext.SecondReceptionSignContract.GetClient(PeopleContext.PeopleStateMachine.transform);
+                    PeopleContext.FirstReceptionChooseCar.ClearClient();
+                    PeopleContext.FirstReceptionChooseCar.GetClient(transform);
+                    timer = timerMax;
+                    return PeopleStateMachine.EPoepleInteractionState.SignContractState;
+                }
+            }
         } else {
             timer = timerMax;
         }

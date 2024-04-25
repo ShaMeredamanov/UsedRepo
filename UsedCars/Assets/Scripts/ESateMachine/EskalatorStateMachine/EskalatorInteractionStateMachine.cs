@@ -8,6 +8,7 @@ public class EskalatorInteractionStateMachine : StateManager<EskalatorInteractio
         WaitCarState,
         MoveGarage,
         RepairState,
+        BeforeCellCar,
         SellCar,
     }
     [SerializeField] private EskalatorWayPoint.EskalatorFirstWayPoints eskalatorWayPoint;
@@ -17,7 +18,9 @@ public class EskalatorInteractionStateMachine : StateManager<EskalatorInteractio
     [SerializeField] private ReparingWaypoint.ReapirCarWayPoints reparingCarWayPointsThirdCellCar;
     [SerializeField] private FirstRepiarShop _firstReapirShop;
     [SerializeField] private SecondRepairShop _secondRepairShop;
+    [SerializeField] private ParticleSystem _particleSystem;
     [SerializeField] private Transform _topPoint;
+    [SerializeField] private ThirdWayPointParentForQueue _thirdWayPointParent;
     private EskalatorContextState _eskalatorContext;
     private TransporterInGarage _inGarage;
     private float generalSpeed = 80f;
@@ -25,15 +28,16 @@ public class EskalatorInteractionStateMachine : StateManager<EskalatorInteractio
     private void Awake() {
         _inGarage = GetComponent<TransporterInGarage>();
         _eskalatorContext = new EskalatorContextState(eskalatorWayPoint, _inGarage, _reapirCarWayPoints, generalSpeed, this,
-            reparingCarWayPointsSecond, reparingCarWayPointsThirdCellCar, _firstReapirShop, _secondRepairShop, _firstCarRepairWayPointParent);
+            reparingCarWayPointsSecond, reparingCarWayPointsThirdCellCar, _firstReapirShop, _secondRepairShop, _firstCarRepairWayPointParent, _particleSystem, _thirdWayPointParent);
         InitilizeStates();
     }
     private void InitilizeStates() {
         States.Add(EEskalatorInteractionState.WaitCarState, new EskaltorInteractionWaitCarState(_eskalatorContext, EEskalatorInteractionState.WaitCarState));
         States.Add(EEskalatorInteractionState.MoveGarage, new EskalatorInteractionMoveGarage(_eskalatorContext, EEskalatorInteractionState.MoveGarage));
         States.Add(EEskalatorInteractionState.RepairState, new EskalatorInteractionRapairCar(_eskalatorContext, EEskalatorInteractionState.RepairState));
-        States.Add(EEskalatorInteractionState.SellCar, new EskalatorInteractionSellCar(_eskalatorContext, EEskalatorInteractionState.SellCar));
         States.Add(EEskalatorInteractionState.SecondReapairShop, new EskalatorInteractionSecondRepairShopState(_eskalatorContext, EEskalatorInteractionState.SecondReapairShop));
+        States.Add(EEskalatorInteractionState.BeforeCellCar, new EskalatorInteractionBeforeCellCar(_eskalatorContext, EEskalatorInteractionState.BeforeCellCar));
+        States.Add(EEskalatorInteractionState.SellCar, new EskalatorInteractionSellCar(_eskalatorContext, EEskalatorInteractionState.SellCar));
         CurrentState = States[EEskalatorInteractionState.WaitCarState];
     }
     private void OnTriggerEnter(Collider other) {

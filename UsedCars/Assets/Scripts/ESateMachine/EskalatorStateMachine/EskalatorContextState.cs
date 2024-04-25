@@ -16,6 +16,8 @@ public class EskalatorContextState {
     private FirstRepiarShop _firstRepairShop;
     private SecondRepairShop _secondRepairShop;
     private FirstCarRepairWayPointParent _firstCarRepairWayPointParent;
+    private ParticleSystem _particleSystem;
+    private ThirdWayPointParentForQueue _thirdWayPointParentForQueue;
     /// <summary>
     /// Constructor
     /// </summary>
@@ -25,7 +27,8 @@ public class EskalatorContextState {
         ReparingWaypoint.ReapirCarWayPoints reapirCarWayPoints,
         float generalSpeed, EskalatorInteractionStateMachine stateMachine, 
         ReparingWaypoint.ReapirCarWayPoints secondRepairShopWayPoint, ReparingWaypoint.ReapirCarWayPoints 
-        reparingCarWayPointsThirdCellCar, FirstRepiarShop firstRepairChooseCar, SecondRepairShop secondRepairChooseCar, FirstCarRepairWayPointParent firstCarRepairWayPointParent) {
+        reparingCarWayPointsThirdCellCar, FirstRepiarShop firstRepairChooseCar, SecondRepairShop secondRepairChooseCar, FirstCarRepairWayPointParent firstCarRepairWayPointParent ,
+        ParticleSystem particleSystem, ThirdWayPointParentForQueue  thirdWayPointParentForQueue ) {
    
         _reapirCarWayPoints = reapirCarWayPoints;
         _stateMachine = stateMachine;
@@ -37,6 +40,8 @@ public class EskalatorContextState {
         _firstRepairShop = firstRepairChooseCar;
         _secondRepairShop = secondRepairChooseCar;
         _firstCarRepairWayPointParent = firstCarRepairWayPointParent;
+        _particleSystem = particleSystem;
+        _thirdWayPointParentForQueue = thirdWayPointParentForQueue;
     }
     /// <summary>
     /// Read only properties
@@ -52,4 +57,6 @@ public class EskalatorContextState {
     public FirstRepiarShop FirstRepairSHop => _firstRepairShop;
     public SecondRepairShop SecondRepairShop => _secondRepairShop;
     public FirstCarRepairWayPointParent FirstCarRepairWayPointParent => _firstCarRepairWayPointParent;
+    public ParticleSystem ParticleSystem => _particleSystem;
+    public ThirdWayPointParentForQueue ThirdWayPointParentForQueue => _thirdWayPointParentForQueue;
 }

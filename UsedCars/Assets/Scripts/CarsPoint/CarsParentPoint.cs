@@ -13,7 +13,6 @@ public class CarsParentPoint : MonoBehaviour {
     [SerializeField] private List<Transform> _allChild;
     public Transform GetCurrentCarsWayPoint(Transform currentTransfrom) {
         currentTransfrom = _allChild[Random.Range(0, _allChild.Count)];
-        _allChild.Add(currentTransfrom);
         return currentTransfrom;
     }
 }

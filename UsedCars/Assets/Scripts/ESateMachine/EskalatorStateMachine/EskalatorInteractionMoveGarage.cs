@@ -19,7 +19,7 @@ public class EskalatorInteractionMoveGarage : EskalatorBaseIteractionState
     private int childCount;
     public override void EnterState()
     {
-
+       
         currentWayPoint = EskalatorContext.FirstWayPoints.GetNextWayPoint(currentWayPoint);
         parentTransfrom = EskalatorContext.FirstWayPoints.GetThisComponentTransfrom(parentTransfrom);
         childCount = parentTransfrom.childCount;

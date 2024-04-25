@@ -1,21 +1,31 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class FirstReceptionChooseCar : MonoBehaviour, IReceptionParent {
     [SerializeField] private Animator _playerAnimator;
     [SerializeField] private List<Transform> _clients;
-    [SerializeField] private CapsuleCollider _capsula;
+    [SerializeField] private BoxCollider _boxCollider;
     [SerializeField] private SecondReceptionSignContract _secondReceptionSignContract;
     [SerializeField] private FirstRepiarShop _firstRepiarShop;
+    [SerializeField] private WaitingQueueParent _waitingQueueParent;
+    [SerializeField] private Image _image;
+    private FemaleCashier _femaleCashier;
     private PlayerDjoystick _playerDjoystick;
     private Transform currentBuyer;
     private PeopleStateMachine _peopleStateMachine;
+    private float fillAmount;
+    private bool getCorountineOnce;
+    private void Start() {
+        _image.fillAmount = 0;
+        fillAmount = 0;
+    }
     public bool CanGetClient() {
         return currentBuyer == null;
     }
     public void ClearClient() {
-      IndexBuyer();
+        IndexBuyer();
     }
     public void GetClient(Transform current) {
         if (_clients.Count > 0) {
@@ -44,13 +54,45 @@ public class FirstReceptionChooseCar : MonoBehaviour, IReceptionParent {
         if (other.TryGetComponent<PlayerDjoystick>(out var playerDjoystick)) {
             _playerDjoystick = playerDjoystick;
             if (!_peopleStateMachine.CheckStateIsStateInsideRoom()) {
-                _capsula.enabled = false;
+                _boxCollider.enabled = false;
+            }
+        }
+    }
+    private void OnTriggerStay(Collider other) {
+        if (HasPlayer()) {
+            if (_peopleStateMachine.CheckStateIsStateInsideRoom()) {
+                if (!getCorountineOnce) {
+                    getCorountineOnce = true;
+                    if (_femaleCashier == null) {
+                        StartCoroutine(CalculateTime());
+                    }
+                }
+            }
+        }
+        if (other.TryGetComponent<FemaleCashier>(out var female)) {
+            if (_peopleStateMachine.CheckStateIsStateInsideRoom()) {
+                if (!getCorountineOnce) {
+                    _femaleCashier = female;
+                    getCorountineOnce = true;
+                    StartCoroutine(CalculateTime());
+                }
+            } else {
+                StopAllCoroutines();
+                fillAmount = 0;
+                _image.fillAmount = 0;
+                getCorountineOnce = false;
             }
         }
     }
     private void OnTriggerExit(Collider other) {
         if (other.TryGetComponent<PlayerDjoystick>(out var playerDjoystick)) {
             ClearPlayer();
+            if (_femaleCashier == null) {
+                StopAllCoroutines();
+                fillAmount = 0;
+                _image.fillAmount = 0;
+                getCorountineOnce = false;
+            }
         }
     }
     private int IndexBuyer() {
@@ -59,8 +101,39 @@ public class FirstReceptionChooseCar : MonoBehaviour, IReceptionParent {
         return currentIndex;
     }
     public void EnableCapsuleColliderComponent() {
-        _capsula.enabled = true;
+        _boxCollider.enabled = true;
+
+    }
+    private IEnumerator CalculateTime() {
+        while (_playerDjoystick != null) {
+            if (fillAmount < 1f) {
+                if (_waitingQueueParent.ChildrensTransforms.Count - 1 > _waitingQueueParent.Index) {
+                    Debug.Log("in cororutine");
+                    fillAmount += (float)0.0125f;
+                    _image.fillAmount = (float)fillAmount;
+                    yield return new WaitForSeconds(0.05f);
+                } else {
+                    yield return null;
+                }
+            } else {
+                yield return null;
+            }
+        }
+        while (_femaleCashier != null) {
+            if (fillAmount < 1f) {
+                if (_waitingQueueParent.ChildrensTransforms.Count - 1 > _waitingQueueParent.Index) {
+                    fillAmount += (float)0.0125f;
+                    _image.fillAmount = (float)fillAmount;
+                    yield return new WaitForSeconds(0.05f);
+                } else {
+                    yield return null;
+                }
+            } else {
+                yield return null;
+            }
+        }
     }
     public FirstRepiarShop FirstRepiarShop => _firstRepiarShop;
+    public FemaleCashier FemaleCashier => _femaleCashier;
 
 }
