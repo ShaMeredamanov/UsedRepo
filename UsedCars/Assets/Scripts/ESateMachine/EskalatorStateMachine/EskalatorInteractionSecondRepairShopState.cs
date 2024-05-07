@@ -10,8 +10,7 @@ public class EskalatorInteractionSecondRepairShopState : EskalatorBaseIteraction
     private Transform currentWayPoint;
     private float speed;
     private float distanceThreeShold = 2.5f;
-    private float timer = 5f;
-    private float timerMax = 5f;
+
     public override void EnterState() {
         currentWayPoint = EskalatorContext.SecondRepairShopWayPoint.GetNextWayPoint(currentWayPoint);
         speed = EskalatorContext.GeneralSpeed;
@@ -22,16 +21,7 @@ public class EskalatorInteractionSecondRepairShopState : EskalatorBaseIteraction
     }
 
     public override EskalatorInteractionStateMachine.EEskalatorInteractionState GetNextState() {
-        if (EskalatorContext.SecondRepairShop.PlayerDjoystick != null) {
-            if (!EskalatorContext.SecondRepairShop.SecondReceptionSignContract.CanGetClient()) {
-                timer -= Time.deltaTime;
-                if (timer <= 0) {
-                  
-                    timer = timerMax;
-                    return EskalatorInteractionStateMachine.EEskalatorInteractionState.SellCar;
-                }
-            }
-        }
+      
         return StateKey;
     }
 

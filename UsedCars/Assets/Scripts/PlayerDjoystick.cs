@@ -1,9 +1,7 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
+
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody), typeof(BoxCollider))]
+[RequireComponent(typeof(Rigidbody))]
 public class PlayerDjoystick : MonoBehaviour {
     private const string IS_RUN = "IsRun";
     private const string WORK = "Work";
@@ -14,8 +12,8 @@ public class PlayerDjoystick : MonoBehaviour {
     [SerializeField] private Transform _transformPlayer;
     [SerializeField] private float _moveSpeed;
     [SerializeField] private ParticleSystem _particleSystem;
-    [SerializeField] private ParticleSystem _particleSystemSecond;
 
+    private bool canCorotineOnce;
     private Vector3 currentPosition;
     private void LateUpdate() {
         _rigidbody.velocity = new Vector3(-_floatingDjoystick.Horizontal * _moveSpeed, _rigidbody.velocity.y, -_floatingDjoystick.Vertical * _moveSpeed);
@@ -35,12 +33,9 @@ public class PlayerDjoystick : MonoBehaviour {
             var targetRoatation = _rigidbody.velocity.normalized;
             targetRoatation.y = 0;
             _transformPlayer.rotation = Quaternion.LookRotation(targetRoatation);
-            _particleSystem.Play();
-            _particleSystemSecond.Play();
         } else {
             _animator.SetBool(IS_RUN, false);
             _particleSystem.Stop();
-            _particleSystemSecond.Stop();
         }
     }
     private void OnTriggerStay(Collider other) {
@@ -68,6 +63,10 @@ public class PlayerDjoystick : MonoBehaviour {
             _animator.SetBool(WORK, false);
         }
     }
+    public void UpgardePLayerSpeed(float speed) {
+        _moveSpeed += speed;
+    }
+
 }
 
 

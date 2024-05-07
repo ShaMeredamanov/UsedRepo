@@ -99,3 +99,76 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 34c77713100ac4243968d508ba4cfbc7, type: 3}
+--- !u!1 &2813622172258158910 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6184499000453500084, guid: 34c77713100ac4243968d508ba4cfbc7,
+    type: 3}
+  m_PrefabInstance: {fileID: 8275434029832357258}
+  m_PrefabAsset: {fileID: 0}
+--- !u!54 &1811656284472251265
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2813622172258158910}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 1
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!65 &2930859726149985327
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2813622172258158910}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.2157655, y: 1.2238613, z: 0.8505888}
+  m_Center: {x: 0.036625147, y: 0.5730228, z: 0.15731621}
+--- !u!95 &8885925883282604156
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2813622172258158910}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &6022084576818089042
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2813622172258158910}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5848f3c76dbd8824e8695b24c751606a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _wayPointParentSalesAgent: {fileID: 0}
+  _carsParentPoint: {fileID: 0}
+  _salesAgentAnimator: {fileID: 0}
+  _receptionChooseCarStateMachine: {fileID: 0}
+  _salesAgentCellCar: {fileID: 0}

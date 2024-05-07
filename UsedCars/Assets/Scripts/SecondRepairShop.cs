@@ -22,6 +22,8 @@ public class SecondRepairShop : MonoBehaviour {
         _washImage.fillAmount = 0f;
         _washParticleSystem.Stop();
         _washParticleSystemSecond.Stop();
+
+        _eskalatorStateMachineList = new List<EskalatorInteractionStateMachine>();
     }
     private void OnTriggerEnter(Collider other) {
         if (other.TryGetComponent<PlayerDjoystick>(out var playerDjoystick)) {

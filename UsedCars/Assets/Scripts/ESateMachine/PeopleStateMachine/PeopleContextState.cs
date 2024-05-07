@@ -13,12 +13,14 @@ public class PeopleContextState {
     private CarsParentPoint _carsParentPoint;
     private MoveCarSideWayPoint _moveCarSide;
     private WaitingQueueParent _waitingQueueParent;
+    private SalesAgentCellCar _salesAgentCellCar;
     private float _generalSpeed;
-
+    private ReceptionChooseCarStateMachine _receptionChooseCarStateMachine;
     public PeopleContextState(Animator animator, PeoplsWayPoint waypointWalkOutSide, float generalSpeed,
         FirstReceptionChooseCar firstReceptionChooseCar, SecondReceptionSignContract secondReceptionSignContract,
         PeopleWalkCarSideWayPoint peopleWalkCarSideWayPoint, SignContractWayPoint signContractWayPoint, MoveCarSideWayPoint moveCarSide,
-        CarsParentPoint carsParentPoint, WaitingQueueParent waitingQueueParent, PeopleStateMachine peopleStateMachine) {
+        CarsParentPoint carsParentPoint, WaitingQueueParent waitingQueueParent, PeopleStateMachine peopleStateMachine, 
+        SalesAgentCellCar salesAgentCellCar, ReceptionChooseCarStateMachine receptionChooseCarStateMachine) {
         _animator = animator;
         _waypointWalkOutSide = waypointWalkOutSide;
         _generalSpeed = generalSpeed;
@@ -30,6 +32,8 @@ public class PeopleContextState {
         _moveCarSide = moveCarSide;
         _carsParentPoint = carsParentPoint;
         _waitingQueueParent = waitingQueueParent;
+        _salesAgentCellCar = salesAgentCellCar;
+        _receptionChooseCarStateMachine = receptionChooseCarStateMachine;
     }
     /// <summary>
     /// Read Only properties
@@ -45,5 +49,8 @@ public class PeopleContextState {
     public MoveCarSideWayPoint MoveCarSideWayPoint => _moveCarSide;
     public CarsParentPoint CarsParentPoint => _carsParentPoint;
     public WaitingQueueParent WaitingQueueParent => _waitingQueueParent;
-}
+
+    public SalesAgentCellCar SalesAgentCellCar => _salesAgentCellCar;
+    public ReceptionChooseCarStateMachine ReceptionChooseCarStateMachine => _receptionChooseCarStateMachine;
+  }
 

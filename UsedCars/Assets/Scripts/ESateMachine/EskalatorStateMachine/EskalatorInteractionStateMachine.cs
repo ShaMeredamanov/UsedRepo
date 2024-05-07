@@ -16,11 +16,12 @@ public class EskalatorInteractionStateMachine : StateManager<EskalatorInteractio
     [SerializeField] private ReparingWaypoint.ReapirCarWayPoints _reapirCarWayPoints;
     [SerializeField] private ReparingWaypoint.ReapirCarWayPoints reparingCarWayPointsSecond;
     [SerializeField] private ReparingWaypoint.ReapirCarWayPoints reparingCarWayPointsThirdCellCar;
-    [SerializeField] private FirstRepiarShop _firstReapirShop;
-    [SerializeField] private SecondRepairShop _secondRepairShop;
     [SerializeField] private ParticleSystem _particleSystem;
+    [SerializeField] private ParticleSystem _particleSystemSecond;
     [SerializeField] private Transform _topPoint;
     [SerializeField] private ThirdWayPointParentForQueue _thirdWayPointParent;
+    [SerializeField] private SecondWashShopStateMachine _secondWashShopStateMachine;
+    [SerializeField] private Animator _topPointAnimations;
     private EskalatorContextState _eskalatorContext;
     private TransporterInGarage _inGarage;
     private float generalSpeed = 80f;
@@ -28,7 +29,8 @@ public class EskalatorInteractionStateMachine : StateManager<EskalatorInteractio
     private void Awake() {
         _inGarage = GetComponent<TransporterInGarage>();
         _eskalatorContext = new EskalatorContextState(eskalatorWayPoint, _inGarage, _reapirCarWayPoints, generalSpeed, this,
-            reparingCarWayPointsSecond, reparingCarWayPointsThirdCellCar, _firstReapirShop, _secondRepairShop, _firstCarRepairWayPointParent, _particleSystem, _thirdWayPointParent);
+            reparingCarWayPointsSecond, reparingCarWayPointsThirdCellCar, _firstCarRepairWayPointParent, 
+            _particleSystem, _thirdWayPointParent, _secondWashShopStateMachine, _particleSystemSecond, _topPointAnimations);
         InitilizeStates();
     }
     private void InitilizeStates() {
@@ -50,6 +52,10 @@ public class EskalatorInteractionStateMachine : StateManager<EskalatorInteractio
     }
     public void ChangeState() {
         CurrentState = States[EEskalatorInteractionState.SecondReapairShop];
+        CurrentState.EnterState();
+    }
+    public void ChangeStateToSellCarState() {
+        CurrentState = States[EEskalatorInteractionState.SellCar];
         CurrentState.EnterState();
     }
     public void GetWayPointAgainToTrue() {

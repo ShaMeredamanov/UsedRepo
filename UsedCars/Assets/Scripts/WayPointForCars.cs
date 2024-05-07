@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class WayPointForCars : MonoBehaviour {
-
     private void OnDrawGizmos() {
         foreach (Transform t in transform) {
             Gizmos.color = Color.black;
@@ -24,7 +23,6 @@ public class WayPointForCars : MonoBehaviour {
     [SerializeField] private Transform _currentCars;
     public Transform GetNextWayPoint(Transform currentChild) {
         if (currentChild == null) {
-
             return transform.GetChild(0);
         }
         if (currentChild.GetSiblingIndex() < transform.childCount - 1) {
@@ -32,6 +30,8 @@ public class WayPointForCars : MonoBehaviour {
         } else {
             return transform.GetChild(0);
         }
+
+
     }
     public PeopleStateMachine GetPeopleStateMachine(PeopleStateMachine peopleStateMachine) {
         _peopleStateMachine = peopleStateMachine;
@@ -42,7 +42,7 @@ public class WayPointForCars : MonoBehaviour {
         current = transform;
         return current;
     }
-    public Transform GetCurrentCar( Transform currentCar) {
+    public Transform GetCurrentCar(Transform currentCar) {
         currentCar = _currentCars;
         return _currentCars;
     }

@@ -22,7 +22,11 @@ public class FirstCarRepairWayPointParent : MonoBehaviour {
             return null;
         }
     }
-    public void DecrementIndex() {
+    public void DecrementIndex(EskalatorInteractionStateMachine eskalatorInteractionStateMachine) {
+        _eskalatorSTate.Remove(eskalatorInteractionStateMachine);
+        foreach(var child in _eskalatorSTate) {
+            Debug.Log(child.Key);
+        }
         index--;
     }
     public Transform GetFreeWayPoint(EskalatorInteractionStateMachine eskalatorInteractionStateMachine, Transform currentQueue) {

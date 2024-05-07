@@ -3,11 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class FirstReceptionChooseCar : MonoBehaviour, IReceptionParent {
-    [SerializeField] private Animator _playerAnimator;
+public class FirstReceptionChooseCar : MonoBehaviour {
     [SerializeField] private List<Transform> _clients;
     [SerializeField] private BoxCollider _boxCollider;
-    [SerializeField] private SecondReceptionSignContract _secondReceptionSignContract;
     [SerializeField] private FirstRepiarShop _firstRepiarShop;
     [SerializeField] private WaitingQueueParent _waitingQueueParent;
     [SerializeField] private Image _image;
@@ -21,17 +19,14 @@ public class FirstReceptionChooseCar : MonoBehaviour, IReceptionParent {
         _image.fillAmount = 0;
         fillAmount = 0;
     }
-    public bool CanGetClient() {
-        return currentBuyer == null;
-    }
+  
     public void ClearClient() {
         IndexBuyer();
     }
-    public void GetClient(Transform current) {
+    public void GetClient() {
         if (_clients.Count > 0) {
-            currentBuyer = _clients[Random.Range(0, _clients.Count - 1)];
+            currentBuyer = _clients[Random.Range(1, _clients.Count - 2)];
             _peopleStateMachine = currentBuyer.GetComponent<PeopleStateMachine>();
-            _peopleStateMachine.ChooseCar(this);
 
         } else {
             Debug.LogError("there is no clients");
@@ -48,7 +43,7 @@ public class FirstReceptionChooseCar : MonoBehaviour, IReceptionParent {
     }
     private void Awake() {
         // there is current buyer do not do something you need change in ireception parent this paremtr default
-        GetClient(currentBuyer);
+        GetClient();
     }
     private void OnTriggerEnter(Collider other) {
         if (other.TryGetComponent<PlayerDjoystick>(out var playerDjoystick)) {
@@ -133,7 +128,6 @@ public class FirstReceptionChooseCar : MonoBehaviour, IReceptionParent {
             }
         }
     }
-    public FirstRepiarShop FirstRepiarShop => _firstRepiarShop;
     public FemaleCashier FemaleCashier => _femaleCashier;
 
 }

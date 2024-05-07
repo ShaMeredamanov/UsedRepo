@@ -5,13 +5,12 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class SecondReceptionSignContract : MonoBehaviour {
-    [SerializeField] private Animator _playerAnimator;
-    [SerializeField] private FirstReceptionChooseCar _firstChooseCar;
     [SerializeField] private SecondRepairShop _secondRepairShop;
     [SerializeField] private List<Transform> buyers;
     [SerializeField] private UiCanvas _uiCanvas;
     [SerializeField] private WaitingQueueParent _waitingQueueParent;
     [SerializeField] private Image _image;
+    [SerializeField] private SecondWashShopStateMachine _secondWashShopStateMachine;
     private float fillAmount;
     private bool getCorountineOnce;
     private PlayerDjoystick _playerDjoystick;
@@ -24,18 +23,17 @@ public class SecondReceptionSignContract : MonoBehaviour {
         fillAmount = 0;
         _image.fillAmount = 0;
     }
-    public bool CanGetClient() {
-        return buyers[0] == null;
-    }
+ 
     public void ClearClient() {
         if (buyers.Count > 0) {
             buyers.RemoveAt(0);
-            _waitingQueueParent.DecrementIndex();
-            _uiCanvas.GEtMoney();
+        //    _waitingQueueParent.DecrementIndex();
+         //   _uiCanvas.GEtMoney();
             _currentClient = null;
-            _secondRepairShop.RemoveFromList();
+            //_secondRepairShop.RemoveFromList();
+       //     _secondWashShopStateMachine.RemoveFromList();
             for (int i = 0; i < buyers.Count; i++) {
-                buyers[i].GetComponent<PeopleStateMachine>().ChangeToGetStateAgaingToTrue();
+             //   buyers[i].GetComponent<PeopleStateMachine>().ChangeToGetStateAgaingToTrue();
             }
         }
     }
@@ -55,14 +53,14 @@ public class SecondReceptionSignContract : MonoBehaviour {
         if (_playerDjoystick != null) {
 
             timer -= Time.deltaTime;
-            if (_secondRepairShop.EskalatorInteractionStateMachineList.Count >= 1) {
+            if (_secondWashShopStateMachine.EskalatorInteractionStateMachinesList.Count >= 1) {
                 if (!getCorountineOnce) {
                     StartCoroutine(CalculateTime());
                     getCorountineOnce = true;
                 }
                 if (timer <= 0) {
                     timer = timerMax;
-                    buyers[0].GetComponent<PeopleStateMachine>().ChangeState();
+              //      buyers[0].GetComponent<PeopleStateMachine>().ChangeStateToBuyCar();
                     ClearClient();
                 }
             }

@@ -13,11 +13,12 @@ public class EskalatorContextState {
     private float _generalSpeed;
     private ReparingWaypoint.ReapirCarWayPoints _secondRepairShopWayPoint;
     private ReparingWaypoint.ReapirCarWayPoints reparingCarWayPointsThirdCellCar;
-    private FirstRepiarShop _firstRepairShop;
-    private SecondRepairShop _secondRepairShop;
     private FirstCarRepairWayPointParent _firstCarRepairWayPointParent;
     private ParticleSystem _particleSystem;
     private ThirdWayPointParentForQueue _thirdWayPointParentForQueue;
+    private SecondWashShopStateMachine _secondWashShopStateMachine;
+    private ParticleSystem _particleSystemSecond;
+    private Animator _topPointAnimation;
     /// <summary>
     /// Constructor
     /// </summary>
@@ -27,8 +28,9 @@ public class EskalatorContextState {
         ReparingWaypoint.ReapirCarWayPoints reapirCarWayPoints,
         float generalSpeed, EskalatorInteractionStateMachine stateMachine, 
         ReparingWaypoint.ReapirCarWayPoints secondRepairShopWayPoint, ReparingWaypoint.ReapirCarWayPoints 
-        reparingCarWayPointsThirdCellCar, FirstRepiarShop firstRepairChooseCar, SecondRepairShop secondRepairChooseCar, FirstCarRepairWayPointParent firstCarRepairWayPointParent ,
-        ParticleSystem particleSystem, ThirdWayPointParentForQueue  thirdWayPointParentForQueue ) {
+        reparingCarWayPointsThirdCellCar,  FirstCarRepairWayPointParent firstCarRepairWayPointParent ,
+        ParticleSystem particleSystem, ThirdWayPointParentForQueue  thirdWayPointParentForQueue, 
+        SecondWashShopStateMachine secondWashShopStateMachine, ParticleSystem particleSystem1, Animator topPointAnimation) {
    
         _reapirCarWayPoints = reapirCarWayPoints;
         _stateMachine = stateMachine;
@@ -37,11 +39,12 @@ public class EskalatorContextState {
         _generalSpeed = generalSpeed;
         _secondRepairShopWayPoint = secondRepairShopWayPoint;
         this.reparingCarWayPointsThirdCellCar = reparingCarWayPointsThirdCellCar;
-        _firstRepairShop = firstRepairChooseCar;
-        _secondRepairShop = secondRepairChooseCar;
         _firstCarRepairWayPointParent = firstCarRepairWayPointParent;
         _particleSystem = particleSystem;
         _thirdWayPointParentForQueue = thirdWayPointParentForQueue;
+        _secondWashShopStateMachine = secondWashShopStateMachine;
+        _particleSystemSecond = particleSystem1;
+        _topPointAnimation = topPointAnimation;
     }
     /// <summary>
     /// Read only properties
@@ -54,9 +57,10 @@ public class EskalatorContextState {
     public ReparingWaypoint.ReapirCarWayPoints  SecondRepairShopWayPoint => _secondRepairShopWayPoint;
 
     public ReparingWaypoint.ReapirCarWayPoints ReparingCarWayPointsThirdCellCar => reparingCarWayPointsThirdCellCar;
-    public FirstRepiarShop FirstRepairSHop => _firstRepairShop;
-    public SecondRepairShop SecondRepairShop => _secondRepairShop;
     public FirstCarRepairWayPointParent FirstCarRepairWayPointParent => _firstCarRepairWayPointParent;
     public ParticleSystem ParticleSystem => _particleSystem;
-    public ThirdWayPointParentForQueue ThirdWayPointParentForQueue => _thirdWayPointParentForQueue;
-}
+     public ThirdWayPointParentForQueue ThirdWayPointParentForQueue => _thirdWayPointParentForQueue;
+     public SecondWashShopStateMachine SecondWashShopStateMachine => _secondWashShopStateMachine;
+    public ParticleSystem ParticleSystemSecond => _particleSystemSecond;
+    public Animator TopPointAnimation => _topPointAnimation;
+   }

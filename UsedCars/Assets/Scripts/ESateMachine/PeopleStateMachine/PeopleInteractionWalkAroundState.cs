@@ -13,19 +13,16 @@ public class PeopleInteractionWalkAroundState : PeopleBaseInteractionState {
     private float rotateSpeed = 10f;
     private const string IS_WALKING = "IsWalking";
     public override void EnterState() {
-
         currentWayPoint = PeopleContext.WayPointWalkoutSide.GetChildTransfrom(currentWayPoint);
         speed = PeopleContext.GeneralSpeed;
         PeopleContext.Animator.SetBool(IS_WALKING, true);
     }
-
     public override void ExitState() {
     }
-
     public override PeopleStateMachine.EPoepleInteractionState GetNextState() {
-            if (PeopleContext.FirstReceptionChooseCar.GetClientTransform() == PeopleContext.PeopleStateMachine.transform) {
-                return PeopleStateMachine.EPoepleInteractionState.FirstChooseCar;
-            }
+        if (PeopleContext.PeopleStateMachine.GetReceptionStateMachine() != null) {
+            return PeopleStateMachine.EPoepleInteractionState.FirstChooseCar;
+        }
         return StateKey;
     }
     public override void UpdateState() {
@@ -38,11 +35,9 @@ public class PeopleInteractionWalkAroundState : PeopleBaseInteractionState {
     }
     public override void OnTriggerEnter(Collider other) {
     }
-
     public override void OnTriggerExit(Collider other) {
         throw new System.NotImplementedException();
     }
-
     public override void OnTriggerStay(Collider other) {
         throw new System.NotImplementedException();
     }

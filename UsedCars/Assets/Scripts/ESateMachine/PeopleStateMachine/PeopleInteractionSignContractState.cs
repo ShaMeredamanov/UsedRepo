@@ -12,7 +12,7 @@ public class PeopleInteractionSignContractState : PeopleBaseInteractionState {
     private Transform currentWayPoint;
     private int childCount;
     private float speed;
-    private float distanceThreeShold = 1f;
+    private float distanceThreeShold = 5f;
     private Vector3 diretionToWayPoint;
     private Quaternion rotationGoal;
     private float rotateSpeed = 10f;
@@ -73,8 +73,8 @@ public class PeopleInteractionSignContractState : PeopleBaseInteractionState {
                 _animator.SetBool(IS_WALKING, false);
                 speed = 0;
             } else {
-                _animator.SetBool(IS_WALKING, true);
-                speed = 40;
+                _animator.SetBool(IS_WALKING, false);
+                speed = 0;
             }
         }
         RotateTowardsWayPoint();

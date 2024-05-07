@@ -7,11 +7,8 @@ public class TransporterInteractionCheckReceptionState : CarBaseInteractionState
         TransportCarContextState transportCarContext = transportCarContextState;
 
     }
-    private PeopleStateMachine peopleStateMachine;
-    private Transform currentClient;
+   
     public override void EnterState() {
-        currentClient = Context.FirstReceptionChooseCar.GetClientTransform();
-        peopleStateMachine = currentClient.GetComponent<PeopleStateMachine>();
         Context.Transporter.CreateCarObject();
     }
 
@@ -19,10 +16,7 @@ public class TransporterInteractionCheckReceptionState : CarBaseInteractionState
     }
 
     public override TransportIntercationStateMachine.ETransportInteractionState GetNextState() {
-        if (peopleStateMachine.CheckStateSignContractState()) {
-            Context.FirstReceptionChooseCar.FirstRepiarShop.GetCar(Context.Transporter.transform);
-            return TransportIntercationStateMachine.ETransportInteractionState.BringCar;
-        }
+       
         return StateKey;
     }
 

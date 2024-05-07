@@ -28,14 +28,14 @@ public class PeopleInteractionWalkCarSideState : PeopleBaseInteractionState {
     }
 
     public override void ExitState() {
+       // PeopleContext.ReceptionChooseCarStateMachine.RemoveClient();
+       
     }
 
     public override PeopleStateMachine.EPoepleInteractionState GetNextState() {
 
         if (childCount - 1 <= currentWayPoint.GetSiblingIndex()) {
-            PeopleContext.FirstReceptionChooseCar.EnableCapsuleColliderComponent();
             return PeopleStateMachine.EPoepleInteractionState.InsideInRoomState;
-
         }
         return StateKey;
     }

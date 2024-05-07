@@ -1,4 +1,4 @@
-using System.Collections;
+
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -36,7 +36,7 @@ public class Transporter : MonoBehaviour, ITransportParent {
         carTransForm = null;
     }
     public CarObject CreateCarObject() {
-        var randomCar = Random.Range(0, _carObjects.Count - 1);
+        var randomCar = Random.Range(0, _carObjects.Count);
         carTransForm = Instantiate(_carObjects[randomCar], _topPoint.position, _topPoint.transform.rotation, _topPoint);
         CarObject carObject = carTransForm.GetComponent<CarObject>();
         carTransForm.transform.localPosition = Vector3.zero;
@@ -51,6 +51,9 @@ public class Transporter : MonoBehaviour, ITransportParent {
         GameObject gmObject = gameObject;
         gmObject.SetActive(true);
         return gmObject;
+    }
+    public void AddNewCarObject(GameObject carObject) {
+        _carObjects.Add(carObject);
     }
     public GameObject CarTransform => carTransForm;
     public EskalatorInteractionStateMachine EskalatorInteractionStateMachine => _eskalatorInteractionStateMachine;

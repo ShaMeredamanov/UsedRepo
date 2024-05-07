@@ -34,9 +34,13 @@ public class WaitingQueueParent : MonoBehaviour {
             return null;
         }
     }
-    public void DecrementIndex() {
+    public void DecrementIndex(PeopleStateMachine peopleStateMachine) {
         _peopleStateMachine.RemoveAt(0);
+        _peopleStates.Remove(peopleStateMachine);
         index--;
+        foreach (var child in _peopleStates) {
+         //   Debug.Log(child.Key);
+        }
     }
     public List<Transform> ChildrensTransforms => _childrensTransform;
     public int Index => index;

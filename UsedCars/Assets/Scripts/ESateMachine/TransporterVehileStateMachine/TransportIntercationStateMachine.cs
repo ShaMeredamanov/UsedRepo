@@ -1,5 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
+
 using UnityEngine;
 
 public class TransportIntercationStateMachine : StateManager<TransportIntercationStateMachine.ETransportInteractionState> {
@@ -19,9 +18,10 @@ public class TransportIntercationStateMachine : StateManager<TransportIntercatio
     [SerializeField] private FirstReceptionChooseCar _firtsReceptionChoosCar;
     [SerializeField] private SecondReceptionSignContract _secondReceptionSignContract;
     [SerializeField] private FirstRepiarShop _repiarShop;
+    [SerializeField] private FirstRepairShopInteractionStateMachine _firstRepairShopInteractionStateMachine;
 
     private Transporter _transporter;
-    private float _generalSpeed = 80f;
+    private float _generalSpeed = 140f;
 
 
 
@@ -43,12 +43,16 @@ public class TransportIntercationStateMachine : StateManager<TransportIntercatio
         CurrentState = States[ETransportInteractionState.CheckReceptionState];
 
     }
-
+    public void ChanngeStateBringCarState() {
+        CurrentState = States[ETransportInteractionState.BringCar];
+        CurrentState.EnterState();
+    }
     public ITransportParent GetConveir() {
         var conveir = Instantiate(transporterInGarage.gameObject, convierSPawnPoint.position, convierSPawnPoint.rotation);
         var iTransporterParent = conveir.GetComponent<ITransportParent>();
         var transporterInGarages = conveir.GetComponent<TransporterInGarage>();
-        _repiarShop.TransporterIngarage(transporterInGarages);
+      //  _repiarShop.TransporterIngarage(transporterInGarages);
+        _firstRepairShopInteractionStateMachine.TransporterIngarage(transporterInGarages);
         iTransporterParent.ActivatedObject();
         return iTransporterParent;
     }

@@ -1,5 +1,4 @@
 using UnityEngine;
-
 public class PeopleStateMachine : StateManager<PeopleStateMachine.EPoepleInteractionState> {
     public enum EPoepleInteractionState {
         WalkAroundState,
@@ -12,6 +11,7 @@ public class PeopleStateMachine : StateManager<PeopleStateMachine.EPoepleInterac
 
     private PeopleContextState _peopleContext;
 
+
     [SerializeField] private WaitingQueueParent _waitingQueueParent;
     [SerializeField] private FirstReceptionChooseCar _firstReception;
     [SerializeField] private SecondReceptionSignContract _secondReception;
@@ -21,13 +21,17 @@ public class PeopleStateMachine : StateManager<PeopleStateMachine.EPoepleInterac
     [SerializeField] private MoveCarSideWayPoint _moveCarSideWayPoint;
     [SerializeField] private CarsParentPoint _carsParentPoint;
     [SerializeField] private Animator _animator;
+    [SerializeField] private SalesAgentCellCar _salesAgentCellCar;
+    [SerializeField] private ReceptionChooseCarStateMachine _recptionStatemachine;
+    private SalesAgentInteractionStateMachine _salesAgentInteractionStateMachine;
     private bool getStateAgain;
     private float _generalSpeed = 40f;
-    private float timer = 2f;
-    private float timerMax = 2f;
+    private int money;
+    [SerializeField] private ReceptionChooseCarStateMachine _receptionChooseCarStateMachine;
     private void Awake() {
         _peopleContext = new PeopleContextState(_animator, _wayPoints, _generalSpeed, _firstReception, _secondReception,
-            _wayPointsSide, _signContractWayPoint, _moveCarSideWayPoint, _carsParentPoint, _waitingQueueParent, this);
+            _wayPointsSide, _signContractWayPoint, _moveCarSideWayPoint, _carsParentPoint, 
+            _waitingQueueParent, this, _salesAgentCellCar, _recptionStatemachine);
         InitializedStates();
     }
     private void InitializedStates() {
@@ -45,45 +49,70 @@ public class PeopleStateMachine : StateManager<PeopleStateMachine.EPoepleInterac
     public void DestroyObject() {
         Destroy(gameObject);
     }
-    public bool CheckStateSignContractState() {
-        return CurrentState == States[EPoepleInteractionState.SignContractState];
-    }
-    public FirstReceptionChooseCar ChooseCar(FirstReceptionChooseCar firstReceptionChooseCar) {
-        _firstReception = firstReceptionChooseCar;
-        return _firstReception;
+    public void ChangeStateSignContractState() {
+        CurrentState = States[EPoepleInteractionState.SignContractState];
+        CurrentState.EnterState();
     }
     private void OnTriggerEnter(Collider other) {
         if (other.TryGetComponent<EskalatorInteractionStateMachine>(out var eskalatorInteractionStateMachine)) {
             CurrentState.OnTriggerEnter(other);
         }
-       
+        if(other.TryGetComponent<SalesAgentInteractionStateMachine>(out var salesAgentInteractionStateMachine)) {
+            _salesAgentInteractionStateMachine = salesAgentInteractionStateMachine;
+        }
+        if(_salesAgentInteractionStateMachine != null) {
+            CurrentState.OnTriggerEnter(other);
+        }else if(other.TryGetComponent<PlayerDjoystick>(out var playerDjostick)) {
+            CurrentState.OnTriggerEnter(other);
+        }
+
     }
     private void OnTriggerStay(Collider other) {
         if (other.TryGetComponent<PlayerDjoystick>(out var playerDjoystick)) {
-            timer -= Time.deltaTime;
-            if (timer < 0) {
-                CurrentState = States[EPoepleInteractionState.WalkCarSideState];
-                CurrentState.EnterState();
-                timer = timerMax;
-                var collider = GetComponent<BoxCollider>().enabled = false;    
-            }
+            CurrentState.OnTriggerStay(other);
+        }
+        if (other.TryGetComponent<SalesAgentInteractionStateMachine>(out var salesAgentInteractionState)) {
+            CurrentState.OnTriggerStay(other);
         }
     }
-    public void ChangeState() {
+    private void OnTriggerExit(Collider other) {
+        if (other.TryGetComponent<PlayerDjoystick>(out var playerDjoystick)) {
+            CurrentState.OnTriggerExit(other);
+        }
+        if (other.TryGetComponent<SalesAgentInteractionStateMachine>(out var salesAgentInteractionStateMachine)) {
+            _salesAgentInteractionStateMachine = null;
+            CurrentState.OnTriggerExit(other);
+        }
+    }
+    public void ChangeStateToBuyCar() {
         CurrentState = States[EPoepleInteractionState.BuyCarState];
         CurrentState.EnterState();
     }
     public void ChangeToGetStateAgaingToTrue() {
-        getStateAgain =true;
-    } public void ChangeToGetStateAgaingToFalse() { 
-    
-        getStateAgain =false;
+        getStateAgain = true;
+    }
+    public void ChangeToGetStateAgaingToFalse() {
+
+        getStateAgain = false;
     }
     public bool GetStateGaing() {
-        return getStateAgain;   
+        return getStateAgain;
     }
     public void EnableCollider() {
         var collider = GetComponent<BoxCollider>().enabled = true;
+    }
+    public ReceptionChooseCarStateMachine GetReceptionStateMachine() {
+        return _receptionChooseCarStateMachine;
+    }
+    public void SetReceptionChooseCarStateMachione(ReceptionChooseCarStateMachine receptionChooseCarStateMachine) {
+        _receptionChooseCarStateMachine = receptionChooseCarStateMachine;
+    }
+    public int GetCurrentMoney(int money) {
+        this.money = money;
+        return money;
+    }
+    public int GetCurrentMoneys() {
+        return money;
     }
 }
 
